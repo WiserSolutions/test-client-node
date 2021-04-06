@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2019",
+    "declaration": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "outDir": "./bin"
+  },
+  "include": ["./src"]
+}
