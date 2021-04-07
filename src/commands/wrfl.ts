@@ -64,26 +64,6 @@ async function handler({
   certChainPath,
   privateKeyPath,
 }: Options) {
-  const perfObserver = new PerformanceObserver((items) => {
-    items.getEntries().forEach(({ duration }) => {
-      const [success, failure] = results.reduce(
-        ([s, f], { status }) =>
-          status === "fulfilled" ? [s + batchSize, f] : [s, f + batchSize],
-        [0, 0]
-      );
-      const eventsSent = requestCount * batchSize;
-
-      console.log(
-        `DONE TOTAL ${eventsSent} WRITES IN ${duration}ms (${
-          (1000.0 * eventsSent) / duration
-        }/s)`
-      );
-      console.log(`SUCCESS: ${success} FAILURE: ${failure}`);
-    });
-  });
-
-  perfObserver.observe({ entryTypes: ["measure"], buffered: true });
-
   const createClient = await createClientCreator({
     connectionString,
     rootCertificatePath,
@@ -99,6 +79,37 @@ async function handler({
   );
   const data = "*".repeat(size);
   const metadata = "$".repeat(size);
+
+  const perfObserver = new PerformanceObserver((items) => {
+    items.getEntries().forEach(({ duration }) => {
+      const [success, failure, failures] = results.reduce(
+        ([s, f, e], result) => {
+          if (result.status === "fulfilled") {
+            return [s + batchSize, f, e];
+          }
+
+          e.add(result.reason.toString());
+
+          return [s, f + batchSize, e];
+        },
+        [0, 0, new Set<string>()]
+      );
+      const eventsSent = requestCount * batchSize;
+
+      console.log(
+        `DONE TOTAL ${eventsSent} WRITES IN ${duration}ms (${
+          (1000.0 * eventsSent) / duration
+        }/s)`
+      );
+      console.log(`SUCCESS: ${success} FAILURE: ${failure}`);
+
+      if (failures.size) {
+        console.log(`failures: \n${Array.from(failures).join("\n")}`);
+      }
+    });
+  });
+
+  perfObserver.observe({ entryTypes: ["measure"], buffered: true });
 
   performance.mark("writes-start");
 
