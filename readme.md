@@ -24,11 +24,14 @@ yarn start <command>
 
 ## Global Options:
 
-|                     | description                  | type    | required | default |
-| ------------------- | ---------------------------- | ------- | -------- | ------- |
-| --help              | Show help                    | boolean |          |         |
-| --version           | Show Version Number          | boolean |          |         |
-| --connection-string | Connection string for server | string  | yes      |         |
+|                         | description                   | type    | required | default |
+| ----------------------- | ----------------------------- | ------- | -------- | ------- |
+| --help                  | Show help                     | boolean |          |         |
+| --version               | Show Version Number           | boolean |          |         |
+| --connection-string     | Connection string for server  | string  | yes      |         |
+| --root-certificate-path | path to root certificate file | string  |          |         |
+| --cert-chain-path       | path to cert chain file       | string  |          |         |
+| --private-key-path      | path to private key file      | string  |          |         |
 
 ## Commands
 

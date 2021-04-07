@@ -11,4 +11,16 @@ yargs(hideBin(process.argv))
     type: "string",
     description: "Connection string for server",
     demandOption: true,
+  })
+  .option("root-certificate-path", {
+    type: "string",
+    description: "path to root certificate file",
+  })
+  .option("cert-chain-path", {
+    type: "string",
+    description: "path to cert chain file",
+  })
+  .option("private-key-path", {
+    type: "string",
+    description: "path to private key file",
   }).argv;

@@ -1,15 +1,16 @@
-import {
-  AppendResult,
-  EventStoreDBClient,
-  jsonEvent,
-} from "@eventstore/db-client";
+import { AppendResult, jsonEvent } from "@eventstore/db-client";
+
 import { v4 as uuid } from "uuid";
 import type { CommandModule } from "yargs";
 
 import { performance, PerformanceObserver } from "perf_hooks";
+import { createClientCreator } from "../utils/createClientCreator";
 
 interface Options {
   connectionString: string;
+  rootCertificatePath?: string;
+  certChainPath?: string;
+  privateKeyPath?: string;
   client_count: number;
   request_count: number;
   stream_count: number;
@@ -50,7 +51,6 @@ const wrfl: CommandModule<{}, Options> = {
 };
 
 async function handler({
-  connectionString,
   client_count: clientCount,
   stream_count: streamCount,
   request_count: requestCount,
@@ -58,6 +58,11 @@ async function handler({
   deterministic_stream_selection: deterministicStreamSelection,
   batch_size: batchSize,
   size,
+
+  connectionString,
+  rootCertificatePath,
+  certChainPath,
+  privateKeyPath,
 }: Options) {
   const perfObserver = new PerformanceObserver((items) => {
     items.getEntries().forEach(({ duration }) => {
@@ -78,6 +83,13 @@ async function handler({
   });
 
   perfObserver.observe({ entryTypes: ["measure"], buffered: true });
+
+  const createClient = await createClientCreator({
+    connectionString,
+    rootCertificatePath,
+    certChainPath,
+    privateKeyPath,
+  });
 
   const results: PromiseSettledResult<AppendResult>[] = [];
   const streams = Array.from({ length: streamCount }, (_, i) =>
@@ -102,7 +114,7 @@ async function handler({
   performance.measure("writes", "writes-start", "writes-end");
 
   async function runClient(clientNum: number) {
-    const client = EventStoreDBClient.connectionString(connectionString);
+    const client = createClient();
 
     let k = Math.floor((streamCount / clientCount) * clientNum);
     const count =
