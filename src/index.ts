@@ -1,10 +1,12 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
+import flood2 from "./commands/flood2";
 import wrfl from "./commands/wrfl";
 
 yargs(hideBin(process.argv))
   .command(wrfl)
+  .command(flood2)
   .demandCommand(1)
   .option("connection-string", {
     alias: "s",
