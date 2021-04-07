@@ -1,4 +1,4 @@
-import { AppendResult, jsonEvent } from "@eventstore/db-client";
+import { jsonEvent } from "@eventstore/db-client";
 
 import { v4 as uuid } from "uuid";
 import type { CommandModule } from "yargs";
@@ -71,7 +71,6 @@ async function handler({
     privateKeyPath,
   });
 
-  const results: PromiseSettledResult<AppendResult>[] = [];
   const streams = Array.from({ length: streamCount }, (_, i) =>
     deterministicStreamNames
       ? `${i}.00000000-0000-0000-0000-000000000000`
@@ -80,20 +79,13 @@ async function handler({
   const data = "*".repeat(size);
   const metadata = "$".repeat(size);
 
+  let success = 0;
+  let failure = 0;
+  let total = 0;
+  const failures = new Map<string, number>();
+
   const perfObserver = new PerformanceObserver((items) => {
     items.getEntries().forEach(({ duration }) => {
-      const [success, failure, failures] = results.reduce(
-        ([s, f, e], result) => {
-          if (result.status === "fulfilled") {
-            return [s + batchSize, f, e];
-          }
-
-          e.add(result.reason.toString());
-
-          return [s, f + batchSize, e];
-        },
-        [0, 0, new Set<string>()]
-      );
       const eventsSent = requestCount * batchSize;
 
       console.log(
@@ -104,7 +96,11 @@ async function handler({
       console.log(`SUCCESS: ${success} FAILURE: ${failure}`);
 
       if (failures.size) {
-        console.log(`failures: \n${Array.from(failures).join("\n")}`);
+        console.log(
+          `failures: \n${Array.from(failures)
+            .map(([error, count]) => `${`${count}x`.padEnd(12, " ")}| ${error}`)
+            .join("\n")}`
+        );
       }
     });
   });
@@ -113,18 +109,24 @@ async function handler({
 
   performance.mark("writes-start");
 
-  if (clientCount === 1) {
-    await runClient(0);
-  } else {
-    await Promise.allSettled(
-      Array.from({ length: clientCount }, async (_, i) => runClient(i))
-    );
+  let resolve: () => void;
+  const overall = new Promise<void>((r) => (resolve = r));
+  const completed = () => {
+    if (total >= requestCount) {
+      resolve();
+    }
+  };
+
+  for (let n = 0; n < clientCount; n++) {
+    runClient(n);
   }
+
+  await overall;
 
   performance.mark("writes-end");
   performance.measure("writes", "writes-start", "writes-end");
 
-  async function runClient(clientNum: number) {
+  function runClient(clientNum: number) {
     const client = createClient();
 
     let k = Math.floor((streamCount / clientCount) * clientNum);
@@ -138,20 +140,27 @@ async function handler({
       );
     }
 
-    const result = await Promise.allSettled(
-      Array.from({ length: count }, async () => {
-        const events = createEventBatch("TakeSomeSpaceEvent", batchSize);
-        let streamIndex = deterministicStreamSelection
-          ? k++
-          : Math.floor(Math.random() * streamCount);
-        if (k >= streamCount) {
-          k = 0;
-        }
-        return client.appendToStream(streams[streamIndex], events);
-      })
-    );
-
-    results.push(...result);
+    for (let n = 0; n < count; n++) {
+      const events = createEventBatch("TakeSomeSpaceEvent", batchSize);
+      let streamIndex = deterministicStreamSelection
+        ? k++
+        : Math.floor(Math.random() * streamCount);
+      if (k >= streamCount) {
+        k = 0;
+      }
+      client
+        .appendToStream(streams[streamIndex], events)
+        .then(() => success++)
+        .catch((e) => {
+          failure++;
+          const fail = e.toString();
+          failures.set(fail, (failures.get(fail) ?? 0) + 1);
+        })
+        .finally(() => {
+          total++;
+          completed();
+        });
+    }
   }
 
   function createEventBatch(type: string, size: number) {
