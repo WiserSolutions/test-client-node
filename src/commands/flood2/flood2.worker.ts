@@ -143,6 +143,7 @@ async function runClient(
   streams: string[]
 ): Promise<ClientResult> {
   const client = createClient();
+
   let success = 0;
   let failure = 0;
   const failures = new Map<string, number>();
@@ -154,15 +155,16 @@ async function runClient(
       ? await requestStreamName()
       : streams[Math.floor(Math.random() * streams.length)];
 
-    try {
-      await client.appendToStream(streamName, events);
-      success++;
-    } catch (error) {
-      failure++;
-      const fail = error.toString();
-      failures.set(fail, (failures.get(fail) ?? 0) + 1);
-    }
+    client
+      .appendToStream(streamName, events)
+      .then(() => success++)
+      .catch((error) => {
+        failure++;
+        const fail = error.toString();
+        failures.set(fail, (failures.get(fail) ?? 0) + 1);
+      });
   }
+
   performance.mark(`${id}-writes-end`);
 
   return { id, success, failure, failures };
