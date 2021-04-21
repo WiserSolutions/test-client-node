@@ -12,7 +12,7 @@
     "dev": "ts-node --transpile-only ./src/index.ts --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\""
   },
   "dependencies": {
-    "@eventstore/db-client": "^1.1.1",
+    "@eventstore/db-client": "./eventstore-db-client-1.1.2.tgz",
     "uuid": "^8.3.2",
     "yargs": "^16.2.0"
   },

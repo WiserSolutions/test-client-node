@@ -2,10 +2,9 @@
 # yarn lockfile v1
 
 
-"@eventstore/db-client@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@eventstore/db-client/-/db-client-1.1.1.tgz#9d633305cb4e4363bc19e1cd1e26770b1d67d4f5"
-  integrity sha512-sHFp/LI64asu4Jqli2JH2N3xI8lctO+akROVnq1IrpUv2lYMh5jzabTbUID7hx7Dx14bUnUr32OJdj/PSbS83A==
+"@eventstore/db-client@./eventstore-db-client-1.1.2.tgz":
+  version "1.1.2"
+  resolved "./eventstore-db-client-1.1.2.tgz#7421be48e1c014b0c8551656cb183f4e22a729ee"
   dependencies:
     "@grpc/grpc-js" "^1.2.2"
     "@types/debug" "^4.1.5"
