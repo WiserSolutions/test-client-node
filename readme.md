@@ -76,6 +76,6 @@ yarn start flood2 --connection-string "esdb://c0e0d3arh41g7drr2ilg.mesdb.eventst
 | --stream_count                   | Number of streams to write to           | number  |          | 1000          |
 | --size                           | The size of the event data and metadata | number  |          | 256           |
 | --batch_size                     | Number of events per request            | number  |          | 1             |
-| --deterministic_stream_names     | Use deterministic stream names          | boolean |          | false         |
+| --stream_prefix                  | prefix stream names                     | string  |          |               |
 | --deterministic_stream_selection | Write to streams sequentually           | boolean |          | false         |
 | --worker_count                   | number of workers to use                | number  |          | cpu count - 1 |

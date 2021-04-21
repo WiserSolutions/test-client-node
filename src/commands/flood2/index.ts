@@ -17,7 +17,7 @@ interface Options {
   stream_count: number;
   size: number;
   batch_size: number;
-  deterministic_stream_names: boolean;
+  stream_prefix?: string;
   deterministic_stream_selection: boolean;
   worker_count: number;
 }
@@ -40,13 +40,12 @@ const flood2: CommandModule<{}, Options> = {
     },
     size: { type: "number", default: 256 },
     batch_size: { type: "number", default: 1 },
-    deterministic_stream_names: {
-      type: "boolean",
-      default: false,
-    },
     deterministic_stream_selection: {
       type: "boolean",
       default: false,
+    },
+    stream_prefix: {
+      type: "string",
     },
     worker_count: {
       type: "number",
@@ -60,7 +59,7 @@ async function handler({
   client_count: clientCount,
   stream_count: streamCount,
   request_count: requestCount,
-  deterministic_stream_names: deterministicStreamNames,
+  stream_prefix: streamPrefix,
   deterministic_stream_selection: deterministicStreamSelection,
   batch_size: batchSize,
   worker_count,
@@ -72,9 +71,7 @@ async function handler({
   privateKeyPath,
 }: Options) {
   const streams = Array.from({ length: streamCount }, (_, i) =>
-    deterministicStreamNames
-      ? `${i}.00000000-0000-0000-0000-000000000000`
-      : uuid()
+    streamPrefix != null ? `${streamPrefix}-${i}` : uuid()
   );
 
   const data = "*".repeat(size);
