@@ -189,7 +189,8 @@ function spawnWorker(
 ): Promise<ResponseMsg> {
   return new Promise((resolve, reject) => {
     console.log(
-      `spawning worker ${options.id} with ${options.clientCount} clients`
+      `spawning worker ${options.id} with ${options.clientCount} clients`,
+      options
     );
     const worker = new Worker(require.resolve("./flood2.worker"), {
       workerData: options,
