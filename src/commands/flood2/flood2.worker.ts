@@ -144,8 +144,15 @@ async function runClient(
 ): Promise<ClientResult> {
   const client = createClient();
 
+  let done!: () => void;
+
+  const waitForAll = new Promise<void>((r) => {
+    done = r;
+  });
+
   let success = 0;
   let failure = 0;
+  let total = 0;
   const failures = new Map<string, number>();
 
   performance.mark(`${id}-writes-start`);
@@ -157,13 +164,25 @@ async function runClient(
 
     client
       .appendToStream(streamName, events)
-      .then(() => success++)
+      .then(() => {
+        success++;
+        total++;
+      })
       .catch((error) => {
         failure++;
+        total++;
         const fail = error.toString();
+
         failures.set(fail, (failures.get(fail) ?? 0) + 1);
+      })
+      .finally(() => {
+        if (total >= count) {
+          done();
+        }
       });
   }
+
+  await waitForAll;
 
   performance.mark(`${id}-writes-end`);
 
