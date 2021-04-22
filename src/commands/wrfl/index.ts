@@ -4,6 +4,7 @@ import type { CommandModule } from "yargs";
 import { performance, PerformanceObserver } from "perf_hooks";
 import { Worker } from "worker_threads";
 import { cpus } from "os";
+import { randomBytes } from "crypto";
 
 import { Init, ResponseMsg, StreamMsg, WToPMsg } from "./types";
 
@@ -68,8 +69,8 @@ async function handler({
     streamPrefix != null ? `${streamPrefix}-${i}` : uuid()
   );
 
-  const data = "*".repeat(size);
-  const metadata = "$".repeat(size);
+  const data = randomBytes(size).toString("ascii");
+  const metadata = randomBytes(size).toString("ascii");
 
   let k = 0;
   const nextStreamName = () => {
