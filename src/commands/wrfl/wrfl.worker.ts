@@ -5,7 +5,6 @@ import {
   EventStoreDBClient,
   jsonEvent,
 } from "@eventstore/db-client";
-import { createClientCreator } from "../../utils/createClientCreator";
 import { Init, PToWMsg, RequestStreamMsg, ResponseMsg } from "./types";
 
 const onStreamName: Array<(name: string) => void> = [];
@@ -24,9 +23,6 @@ parentPort!.on("message", (msg: PToWMsg) => {
 
 async function initialize({
   connectionString,
-  rootCertificatePath,
-  certChainPath,
-  privateKeyPath,
   batchSize,
   data,
   metadata,
@@ -53,12 +49,6 @@ async function initialize({
   });
   perfObserver.observe({ entryTypes: ["measure"], buffered: true });
 
-  const createClient = await createClientCreator({
-    connectionString,
-    rootCertificatePath,
-    certChainPath,
-    privateKeyPath,
-  });
   const createEvents = createEventBatch(
     "TakeSomeSpaceEvent",
     batchSize,
@@ -72,7 +62,7 @@ async function initialize({
     Array.from({ length: clientCount }, (_, i) =>
       runClient(
         `${i}`,
-        createClient,
+        connectionString,
         createEvents,
         count,
         deterministicStreamSelection,
@@ -136,13 +126,13 @@ interface ClientResult {
 
 async function runClient(
   id: string,
-  createClient: () => EventStoreDBClient,
+  connectionString: string,
   createEvents: () => EventData[],
   count: number,
   deterministicStreamSelection: boolean,
   streams: string[]
 ): Promise<ClientResult> {
-  const client = createClient();
+  const client = EventStoreDBClient.connectionString(connectionString);
 
   let done!: () => void;
 

@@ -8,9 +8,6 @@ export interface Init {
   count: number;
   deterministicStreamSelection: boolean;
   streams: string[];
-  rootCertificatePath?: string;
-  certChainPath?: string;
-  privateKeyPath?: string;
 }
 
 export interface ResponseMsg {

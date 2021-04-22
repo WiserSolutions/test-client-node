@@ -9,9 +9,6 @@ import { Init, ResponseMsg, StreamMsg, WToPMsg } from "./types";
 
 interface Options {
   connectionString: string;
-  rootCertificatePath?: string;
-  certChainPath?: string;
-  privateKeyPath?: string;
   client_count: number;
   request_count: number;
   stream_count: number;
@@ -22,8 +19,8 @@ interface Options {
   worker_count: number;
 }
 
-const flood2: CommandModule<{}, Options> = {
-  command: "flood2",
+const wrfl: CommandModule<{}, Options> = {
+  command: "wrfl",
   describe: "Multi Write Processor",
   builder: {
     client_count: {
@@ -66,9 +63,6 @@ async function handler({
   size,
 
   connectionString,
-  rootCertificatePath,
-  certChainPath,
-  privateKeyPath,
 }: Options) {
   const streams = Array.from({ length: streamCount }, (_, i) =>
     streamPrefix != null ? `${streamPrefix}-${i}` : uuid()
@@ -149,9 +143,6 @@ async function handler({
           count,
           data,
           metadata,
-          certChainPath,
-          privateKeyPath,
-          rootCertificatePath,
           deterministicStreamSelection,
           streams,
         },
@@ -190,9 +181,14 @@ function spawnWorker(
   return new Promise((resolve, reject) => {
     console.log(
       `spawning worker ${options.id} with ${options.clientCount} clients`,
-      options
+      {
+        ...options,
+        streams: `[ ${options.streams[0]}, ...${
+          options.streams.length - 1
+        } more ]`,
+      }
     );
-    const worker = new Worker(require.resolve("./flood2.worker"), {
+    const worker = new Worker(require.resolve("./wrfl.worker"), {
       workerData: options,
       stdout: true,
     });
@@ -225,4 +221,4 @@ function spawnWorker(
   });
 }
 
-export default flood2;
+export default wrfl;

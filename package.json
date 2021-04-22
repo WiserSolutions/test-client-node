@@ -9,10 +9,10 @@
   "scripts": {
     "start": "node ./bin/index.js",
     "build": "tsc",
-    "dev": "ts-node --transpile-only ./src/index.ts --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\""
+    "dev": "tsc && node ./bin/index.js --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\""
   },
   "dependencies": {
-    "@eventstore/db-client": "./eventstore-db-client-1.1.2.tgz",
+    "@eventstore/db-client": "1.2.0",
     "uuid": "^8.3.2",
     "yargs": "^16.2.0"
   },
