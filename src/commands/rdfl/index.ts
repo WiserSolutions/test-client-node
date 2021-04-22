@@ -17,6 +17,7 @@ interface Options {
   stream_prefix?: string;
   deterministic_stream_selection: boolean;
   worker_count: number;
+  max_in_flight: number;
 }
 
 const rdfl: CommandModule<{}, Options> = {
@@ -35,7 +36,6 @@ const rdfl: CommandModule<{}, Options> = {
       type: "number",
       default: 1000,
     },
-    size: { type: "number", default: 256 },
     batch_size: { type: "number", default: 1 },
     deterministic_stream_selection: {
       type: "boolean",
@@ -47,6 +47,10 @@ const rdfl: CommandModule<{}, Options> = {
     worker_count: {
       type: "number",
       default: cpus().length - 1,
+    },
+    max_in_flight: {
+      type: "number",
+      default: Infinity,
     },
   },
   handler,
@@ -60,7 +64,7 @@ async function handler({
   deterministic_stream_selection: deterministicStreamSelection,
   batch_size: batchSize,
   worker_count,
-  size,
+  max_in_flight: maxInFlight,
 
   connectionString,
 }: Options) {
@@ -109,7 +113,7 @@ async function handler({
       const eventsSent = (success + failure) * batchSize;
 
       console.log(
-        `DONE TOTAL ${eventsSent} WRITES IN ${duration}ms (${
+        `DONE TOTAL ${eventsSent} READS IN ${duration}ms (${
           (1000.0 * eventsSent) / duration
         }/s)`
       );
@@ -127,7 +131,7 @@ async function handler({
 
   perfObserver.observe({ entryTypes: ["measure"], buffered: true });
 
-  performance.mark("writes-start");
+  performance.mark("reads-start");
 
   const promises = await Promise.allSettled(
     workerCounts.map(({ clientCount, count }, i) =>
@@ -140,13 +144,14 @@ async function handler({
           count,
           deterministicStreamSelection,
           streams,
+          maxInFlight,
         },
         nextStreamName
       )
     )
   );
 
-  performance.mark("writes-end");
+  performance.mark("reads-end");
 
   for (const result of promises) {
     if (result.status === "fulfilled") {
@@ -164,7 +169,7 @@ async function handler({
 
   // lazy way to get this last
   setTimeout(
-    () => performance.measure("writes", "writes-start", "writes-end"),
+    () => performance.measure("reads", "reads-start", "reads-end"),
     500
   );
 }

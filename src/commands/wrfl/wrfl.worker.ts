@@ -31,6 +31,7 @@ async function initialize({
   id,
   deterministicStreamSelection,
   streams,
+  maxInFlight,
 }: Init) {
   const perfObserver = new PerformanceObserver((items) => {
     items.getEntries().forEach(({ name, duration }) => {
@@ -60,14 +61,15 @@ async function initialize({
 
   const results = await Promise.allSettled(
     Array.from({ length: clientCount }, (_, i) =>
-      runClient(
-        `${i}`,
+      runClient({
+        id: `${i}`,
         connectionString,
         createEvents,
         count,
         deterministicStreamSelection,
-        streams
-      )
+        streams,
+        maxInFlight,
+      })
     )
   );
 
@@ -124,14 +126,25 @@ interface ClientResult {
   failures: Map<string, number>;
 }
 
-async function runClient(
-  id: string,
-  connectionString: string,
-  createEvents: () => EventData[],
-  count: number,
-  deterministicStreamSelection: boolean,
-  streams: string[]
-): Promise<ClientResult> {
+interface RunClientOptions {
+  id: string;
+  connectionString: string;
+  createEvents: () => EventData[];
+  count: number;
+  deterministicStreamSelection: boolean;
+  streams: string[];
+  maxInFlight: number;
+}
+
+async function runClient({
+  id,
+  connectionString,
+  createEvents,
+  count,
+  deterministicStreamSelection,
+  streams,
+  maxInFlight,
+}: RunClientOptions): Promise<ClientResult> {
   const client = EventStoreDBClient.connectionString(connectionString);
 
   let done!: () => void;
@@ -140,9 +153,21 @@ async function runClient(
     done = r;
   });
 
+  let landed!: () => void;
+  let waitForGate = new Promise<void>((r) => {
+    landed = r;
+  });
+  const letNextEventThrough = () => {
+    landed();
+    waitForGate = new Promise<void>((r) => {
+      landed = r;
+    });
+  };
+
   let success = 0;
   let failure = 0;
   let total = 0;
+  let inFlight = 0;
   const failures = new Map<string, number>();
 
   performance.mark(`${id}-writes-start`);
@@ -151,6 +176,12 @@ async function runClient(
     const streamName = deterministicStreamSelection
       ? await requestStreamName()
       : streams[Math.floor(Math.random() * streams.length)];
+
+    if (inFlight >= maxInFlight) {
+      await waitForGate;
+    }
+
+    inFlight++;
 
     client
       .appendToStream(streamName, events)
@@ -166,6 +197,8 @@ async function runClient(
         failures.set(fail, (failures.get(fail) ?? 0) + 1);
       })
       .finally(() => {
+        inFlight--;
+        letNextEventThrough();
         if (total >= count) {
           done();
         }

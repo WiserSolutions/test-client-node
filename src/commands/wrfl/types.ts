@@ -8,6 +8,7 @@ export interface Init {
   count: number;
   deterministicStreamSelection: boolean;
   streams: string[];
+  maxInFlight: number;
 }
 
 export interface ResponseMsg {

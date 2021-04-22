@@ -18,6 +18,7 @@ interface Options {
   stream_prefix?: string;
   deterministic_stream_selection: boolean;
   worker_count: number;
+  max_in_flight: number;
 }
 
 const wrfl: CommandModule<{}, Options> = {
@@ -49,6 +50,10 @@ const wrfl: CommandModule<{}, Options> = {
       type: "number",
       default: cpus().length - 1,
     },
+    max_in_flight: {
+      type: "number",
+      default: Infinity,
+    },
   },
   handler,
 };
@@ -60,9 +65,9 @@ async function handler({
   stream_prefix: streamPrefix,
   deterministic_stream_selection: deterministicStreamSelection,
   batch_size: batchSize,
+  max_in_flight: maxInFlight,
   worker_count,
   size,
-
   connectionString,
 }: Options) {
   const streams = Array.from({ length: streamCount }, (_, i) =>
@@ -146,6 +151,7 @@ async function handler({
           metadata,
           deterministicStreamSelection,
           streams,
+          maxInFlight,
         },
         nextStreamName
       )

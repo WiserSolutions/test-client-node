@@ -25,6 +25,7 @@ async function initialize({
   id,
   deterministicStreamSelection,
   streams,
+  maxInFlight,
 }: Init) {
   const perfObserver = new PerformanceObserver((items) => {
     items.getEntries().forEach(({ name, duration }) => {
@@ -33,7 +34,7 @@ async function initialize({
         : count * batchSize;
       parentPort!.postMessage({
         type: "perf",
-        message: `${name.toUpperCase()} ${eventsSent} reads IN ${duration}ms (${
+        message: `${name.toUpperCase()} ${eventsSent} READS IN ${duration}ms (${
           (1000.0 * eventsSent) / duration
         }/s)`,
       });
@@ -47,14 +48,15 @@ async function initialize({
 
   const results = await Promise.allSettled(
     Array.from({ length: clientCount }, (_, i) =>
-      runClient(
-        `${i}`,
+      runClient({
+        id: `${i}`,
         connectionString,
         count,
         batchSize,
         deterministicStreamSelection,
-        streams
-      )
+        streams,
+        maxInFlight,
+      })
     )
   );
 
@@ -111,25 +113,47 @@ interface ClientResult {
   failures: Map<string, number>;
 }
 
-async function runClient(
-  id: string,
-  connectionString: string,
-  count: number,
-  batchSize: number,
-  deterministicStreamSelection: boolean,
-  streams: string[]
-): Promise<ClientResult> {
+interface RunClientOptions {
+  id: string;
+  connectionString: string;
+  count: number;
+  batchSize: number;
+  deterministicStreamSelection: boolean;
+  streams: string[];
+  maxInFlight: number;
+}
+
+async function runClient({
+  id,
+  connectionString,
+  count,
+  deterministicStreamSelection,
+  streams,
+  batchSize,
+  maxInFlight,
+}: RunClientOptions): Promise<ClientResult> {
   const client = EventStoreDBClient.connectionString(connectionString);
 
   let done!: () => void;
-
   const waitForAll = new Promise<void>((r) => {
     done = r;
   });
 
+  let landed!: () => void;
+  let waitForGate = new Promise<void>((r) => {
+    landed = r;
+  });
+  const letNextEventThrough = () => {
+    landed();
+    waitForGate = new Promise<void>((r) => {
+      landed = r;
+    });
+  };
+
   let success = 0;
   let failure = 0;
   let total = 0;
+  let inFlight = 0;
   const failures = new Map<string, number>();
 
   performance.mark(`${id}-reads-start`);
@@ -137,6 +161,12 @@ async function runClient(
     const streamName = deterministicStreamSelection
       ? await requestStreamName()
       : streams[Math.floor(Math.random() * streams.length)];
+
+    if (inFlight >= maxInFlight) {
+      await waitForGate;
+    }
+
+    inFlight++;
 
     client
       .readStream(streamName, { maxCount: batchSize })
@@ -158,6 +188,8 @@ async function runClient(
         }
       })
       .finally(() => {
+        inFlight--;
+        letNextEventThrough();
         if (total >= count) {
           done();
         }
