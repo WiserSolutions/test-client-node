@@ -1,3 +1,5 @@
+import { Clients } from "../../utils/client";
+
 export interface Init {
   id: string;
   clientCount: number;
@@ -9,6 +11,7 @@ export interface Init {
   deterministicStreamSelection: boolean;
   streams: string[];
   maxInFlight: number;
+  client: Clients;
 }
 
 export interface ResponseMsg {

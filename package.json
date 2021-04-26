@@ -5,10 +5,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "test-runner"
+    "test-runner",
+    "clients/*"
   ],
   "scripts": {
     "build": "run-s build:*",
+    "build:pbjs": "yarn workspace @eventstore/db-client-pbjs build",
     "build:runner": "yarn workspace test-runner build",
     "start": "yarn workspace test-runner start",
     "dev": "yarn workspace test-runner dev"

@@ -1,11 +1,10 @@
 import { parentPort, workerData } from "worker_threads";
 import { performance, PerformanceObserver } from "perf_hooks";
-import {
-  EventData,
-  EventStoreDBClient,
-  jsonEvent,
-} from "@eventstore/db-client";
+
 import { Init, PToWMsg, RequestStreamMsg, ResponseMsg } from "./types";
+import { getClient } from "../../utils/client";
+
+const { EventStoreDBClient, jsonEvent } = getClient(workerData.client);
 
 const onStreamName: Array<(name: string) => void> = [];
 
@@ -129,7 +128,7 @@ interface ClientResult {
 interface RunClientOptions {
   id: string;
   connectionString: string;
-  createEvents: () => EventData[];
+  createEvents: () => any[];
   count: number;
   deterministicStreamSelection: boolean;
   streams: string[];

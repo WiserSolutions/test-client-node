@@ -7,8 +7,10 @@ import { cpus } from "os";
 import { randomBytes } from "crypto";
 
 import { Init, ResponseMsg, StreamMsg, WToPMsg } from "./types";
+import { Clients } from "../../utils/client";
 
 interface Options {
+  client: Clients;
   connectionString: string;
   client_count: number;
   request_count: number;
@@ -69,6 +71,7 @@ async function handler({
   worker_count,
   size,
   connectionString,
+  client,
 }: Options) {
   const streams = Array.from({ length: streamCount }, (_, i) =>
     streamPrefix != null ? `${streamPrefix}-${i}` : uuid()
@@ -152,6 +155,7 @@ async function handler({
           deterministicStreamSelection,
           streams,
           maxInFlight,
+          client,
         },
         nextStreamName
       )

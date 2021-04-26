@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@eventstore/db-client": "1.2.0",
+    "@eventstore/db-client-pbjs": "1.0.0",
     "uuid": "^8.3.2",
     "yargs": "^16.2.0"
   },

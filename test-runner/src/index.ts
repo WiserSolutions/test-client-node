@@ -13,4 +13,10 @@ yargs(hideBin(process.argv))
     type: "string",
     description: "Connection string for server",
     demandOption: true,
+  })
+  .option("client", {
+    type: "string",
+    description: "which client to use",
+    demandOption: true,
+    choices: ["gpb", "pbjs"],
   }).argv;

@@ -4,19 +4,19 @@
 var $protobuf = require("protobufjs/minimal");
 
 // Common aliases
-const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-export const event_store = $root.event_store = (() => {
+$root.event_store = (function() {
 
     /**
      * Namespace event_store.
      * @exports event_store
      * @namespace
      */
-    const event_store = {};
+    var event_store = {};
 
     event_store.client = (function() {
 
@@ -25,7 +25,7 @@ export const event_store = $root.event_store = (() => {
          * @memberof event_store
          * @namespace
          */
-        const client = {};
+        var client = {};
 
         client.gossip = (function() {
 
@@ -34,7 +34,7 @@ export const event_store = $root.event_store = (() => {
              * @memberof event_store.client
              * @namespace
              */
-            const gossip = {};
+            var gossip = {};
 
             gossip.Gossip = (function() {
 
@@ -124,7 +124,7 @@ export const event_store = $root.event_store = (() => {
                 function ClusterInfo(properties) {
                     this.members = [];
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -162,7 +162,7 @@ export const event_store = $root.event_store = (() => {
                     if (!writer)
                         writer = $Writer.create();
                     if (message.members != null && message.members.length)
-                        for (let i = 0; i < message.members.length; ++i)
+                        for (var i = 0; i < message.members.length; ++i)
                             $root.event_store.client.gossip.MemberInfo.encode(message.members[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                     return writer;
                 };
@@ -194,9 +194,9 @@ export const event_store = $root.event_store = (() => {
                 ClusterInfo.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.ClusterInfo();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.ClusterInfo();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             if (!(message.members && message.members.length))
@@ -241,8 +241,8 @@ export const event_store = $root.event_store = (() => {
                     if (message.members != null && message.hasOwnProperty("members")) {
                         if (!Array.isArray(message.members))
                             return "members: array expected";
-                        for (let i = 0; i < message.members.length; ++i) {
-                            let error = $root.event_store.client.gossip.MemberInfo.verify(message.members[i]);
+                        for (var i = 0; i < message.members.length; ++i) {
+                            var error = $root.event_store.client.gossip.MemberInfo.verify(message.members[i]);
                             if (error)
                                 return "members." + error;
                         }
@@ -261,12 +261,12 @@ export const event_store = $root.event_store = (() => {
                 ClusterInfo.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.gossip.ClusterInfo)
                         return object;
-                    let message = new $root.event_store.client.gossip.ClusterInfo();
+                    var message = new $root.event_store.client.gossip.ClusterInfo();
                     if (object.members) {
                         if (!Array.isArray(object.members))
                             throw TypeError(".event_store.client.gossip.ClusterInfo.members: array expected");
                         message.members = [];
-                        for (let i = 0; i < object.members.length; ++i) {
+                        for (var i = 0; i < object.members.length; ++i) {
                             if (typeof object.members[i] !== "object")
                                 throw TypeError(".event_store.client.gossip.ClusterInfo.members: object expected");
                             message.members[i] = $root.event_store.client.gossip.MemberInfo.fromObject(object.members[i]);
@@ -287,12 +287,12 @@ export const event_store = $root.event_store = (() => {
                 ClusterInfo.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.arrays || options.defaults)
                         object.members = [];
                     if (message.members && message.members.length) {
                         object.members = [];
-                        for (let j = 0; j < message.members.length; ++j)
+                        for (var j = 0; j < message.members.length; ++j)
                             object.members[j] = $root.event_store.client.gossip.MemberInfo.toObject(message.members[j], options);
                     }
                     return object;
@@ -332,7 +332,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function EndPoint(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -411,9 +411,9 @@ export const event_store = $root.event_store = (() => {
                 EndPoint.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.EndPoint();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.EndPoint();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.address = reader.string();
@@ -476,7 +476,7 @@ export const event_store = $root.event_store = (() => {
                 EndPoint.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.gossip.EndPoint)
                         return object;
-                    let message = new $root.event_store.client.gossip.EndPoint();
+                    var message = new $root.event_store.client.gossip.EndPoint();
                     if (object.address != null)
                         message.address = String(object.address);
                     if (object.port != null)
@@ -496,7 +496,7 @@ export const event_store = $root.event_store = (() => {
                 EndPoint.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults) {
                         object.address = "";
                         object.port = 0;
@@ -545,7 +545,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function MemberInfo(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -654,9 +654,9 @@ export const event_store = $root.event_store = (() => {
                 MemberInfo.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.MemberInfo();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.gossip.MemberInfo();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.instanceId = $root.event_store.client.shared.UUID.decode(reader, reader.uint32());
@@ -709,7 +709,7 @@ export const event_store = $root.event_store = (() => {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.instanceId != null && message.hasOwnProperty("instanceId")) {
-                        let error = $root.event_store.client.shared.UUID.verify(message.instanceId);
+                        var error = $root.event_store.client.shared.UUID.verify(message.instanceId);
                         if (error)
                             return "instanceId." + error;
                     }
@@ -742,7 +742,7 @@ export const event_store = $root.event_store = (() => {
                         if (typeof message.isAlive !== "boolean")
                             return "isAlive: boolean expected";
                     if (message.httpEndPoint != null && message.hasOwnProperty("httpEndPoint")) {
-                        let error = $root.event_store.client.gossip.EndPoint.verify(message.httpEndPoint);
+                        var error = $root.event_store.client.gossip.EndPoint.verify(message.httpEndPoint);
                         if (error)
                             return "httpEndPoint." + error;
                     }
@@ -760,7 +760,7 @@ export const event_store = $root.event_store = (() => {
                 MemberInfo.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.gossip.MemberInfo)
                         return object;
-                    let message = new $root.event_store.client.gossip.MemberInfo();
+                    var message = new $root.event_store.client.gossip.MemberInfo();
                     if (object.instanceId != null) {
                         if (typeof object.instanceId !== "object")
                             throw TypeError(".event_store.client.gossip.MemberInfo.instanceId: object expected");
@@ -863,11 +863,11 @@ export const event_store = $root.event_store = (() => {
                 MemberInfo.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults) {
                         object.instanceId = null;
                         if ($util.Long) {
-                            let long = new $util.Long(0, 0, false);
+                            var long = new $util.Long(0, 0, false);
                             object.timeStamp = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                         } else
                             object.timeStamp = options.longs === String ? "0" : 0;
@@ -924,7 +924,7 @@ export const event_store = $root.event_store = (() => {
                  * @property {number} ResigningLeader=15 ResigningLeader value
                  */
                 MemberInfo.VNodeState = (function() {
-                    const valuesById = {}, values = Object.create(valuesById);
+                    var valuesById = {}, values = Object.create(valuesById);
                     values[valuesById[0] = "Initializing"] = 0;
                     values[valuesById[1] = "DiscoverLeader"] = 1;
                     values[valuesById[2] = "Unknown"] = 2;
@@ -957,7 +957,7 @@ export const event_store = $root.event_store = (() => {
              * @memberof event_store.client
              * @namespace
              */
-            const shared = {};
+            var shared = {};
 
             shared.UUID = (function() {
 
@@ -979,7 +979,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function UUID(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -1001,7 +1001,7 @@ export const event_store = $root.event_store = (() => {
                 UUID.prototype.string = "";
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * UUID value.
@@ -1072,9 +1072,9 @@ export const event_store = $root.event_store = (() => {
                 UUID.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.UUID();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.UUID();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.structured = $root.event_store.client.shared.UUID.Structured.decode(reader, reader.uint32());
@@ -1117,11 +1117,11 @@ export const event_store = $root.event_store = (() => {
                 UUID.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.structured != null && message.hasOwnProperty("structured")) {
                         properties.value = 1;
                         {
-                            let error = $root.event_store.client.shared.UUID.Structured.verify(message.structured);
+                            var error = $root.event_store.client.shared.UUID.Structured.verify(message.structured);
                             if (error)
                                 return "structured." + error;
                         }
@@ -1147,7 +1147,7 @@ export const event_store = $root.event_store = (() => {
                 UUID.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.shared.UUID)
                         return object;
-                    let message = new $root.event_store.client.shared.UUID();
+                    var message = new $root.event_store.client.shared.UUID();
                     if (object.structured != null) {
                         if (typeof object.structured !== "object")
                             throw TypeError(".event_store.client.shared.UUID.structured: object expected");
@@ -1170,7 +1170,7 @@ export const event_store = $root.event_store = (() => {
                 UUID.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.structured != null && message.hasOwnProperty("structured")) {
                         object.structured = $root.event_store.client.shared.UUID.Structured.toObject(message.structured, options);
                         if (options.oneofs)
@@ -1215,7 +1215,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Structured(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -1294,9 +1294,9 @@ export const event_store = $root.event_store = (() => {
                     Structured.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.UUID.Structured();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.UUID.Structured();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.mostSignificantBits = reader.int64();
@@ -1359,7 +1359,7 @@ export const event_store = $root.event_store = (() => {
                     Structured.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.shared.UUID.Structured)
                             return object;
-                        let message = new $root.event_store.client.shared.UUID.Structured();
+                        var message = new $root.event_store.client.shared.UUID.Structured();
                         if (object.mostSignificantBits != null)
                             if ($util.Long)
                                 (message.mostSignificantBits = $util.Long.fromValue(object.mostSignificantBits)).unsigned = false;
@@ -1393,15 +1393,15 @@ export const event_store = $root.event_store = (() => {
                     Structured.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, false);
+                                var long = new $util.Long(0, 0, false);
                                 object.mostSignificantBits = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.mostSignificantBits = options.longs === String ? "0" : 0;
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, false);
+                                var long = new $util.Long(0, 0, false);
                                 object.leastSignificantBits = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.leastSignificantBits = options.longs === String ? "0" : 0;
@@ -1454,7 +1454,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function Empty(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -1513,9 +1513,9 @@ export const event_store = $root.event_store = (() => {
                 Empty.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.Empty();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.Empty();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         default:
                             reader.skipType(tag & 7);
@@ -1615,7 +1615,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function StreamIdentifier(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -1684,9 +1684,9 @@ export const event_store = $root.event_store = (() => {
                 StreamIdentifier.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.StreamIdentifier();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.shared.StreamIdentifier();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 3:
                             message.streamName = reader.bytes();
@@ -1743,7 +1743,7 @@ export const event_store = $root.event_store = (() => {
                 StreamIdentifier.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.shared.StreamIdentifier)
                         return object;
-                    let message = new $root.event_store.client.shared.StreamIdentifier();
+                    var message = new $root.event_store.client.shared.StreamIdentifier();
                     if (object.streamName != null)
                         if (typeof object.streamName === "string")
                             $util.base64.decode(object.streamName, message.streamName = $util.newBuffer($util.base64.length(object.streamName)), 0);
@@ -1764,7 +1764,7 @@ export const event_store = $root.event_store = (() => {
                 StreamIdentifier.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults)
                         if (options.bytes === String)
                             object.streamName = "";
@@ -1802,7 +1802,7 @@ export const event_store = $root.event_store = (() => {
              * @memberof event_store.client
              * @namespace
              */
-            const streams = {};
+            var streams = {};
 
             streams.Streams = (function() {
 
@@ -1990,7 +1990,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function ReadReq(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -2059,9 +2059,9 @@ export const event_store = $root.event_store = (() => {
                 ReadReq.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.options = $root.event_store.client.streams.ReadReq.Options.decode(reader, reader.uint32());
@@ -2102,7 +2102,7 @@ export const event_store = $root.event_store = (() => {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.options != null && message.hasOwnProperty("options")) {
-                        let error = $root.event_store.client.streams.ReadReq.Options.verify(message.options);
+                        var error = $root.event_store.client.streams.ReadReq.Options.verify(message.options);
                         if (error)
                             return "options." + error;
                     }
@@ -2120,7 +2120,7 @@ export const event_store = $root.event_store = (() => {
                 ReadReq.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.ReadReq)
                         return object;
-                    let message = new $root.event_store.client.streams.ReadReq();
+                    var message = new $root.event_store.client.streams.ReadReq();
                     if (object.options != null) {
                         if (typeof object.options !== "object")
                             throw TypeError(".event_store.client.streams.ReadReq.options: object expected");
@@ -2141,7 +2141,7 @@ export const event_store = $root.event_store = (() => {
                 ReadReq.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults)
                         object.options = null;
                     if (message.options != null && message.hasOwnProperty("options"))
@@ -2187,7 +2187,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Options(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -2265,7 +2265,7 @@ export const event_store = $root.event_store = (() => {
                     Options.prototype.uuidOption = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * Options streamOption.
@@ -2372,9 +2372,9 @@ export const event_store = $root.event_store = (() => {
                     Options.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.stream = $root.event_store.client.streams.ReadReq.Options.StreamOptions.decode(reader, reader.uint32());
@@ -2438,11 +2438,11 @@ export const event_store = $root.event_store = (() => {
                     Options.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.stream != null && message.hasOwnProperty("stream")) {
                             properties.streamOption = 1;
                             {
-                                let error = $root.event_store.client.streams.ReadReq.Options.StreamOptions.verify(message.stream);
+                                var error = $root.event_store.client.streams.ReadReq.Options.StreamOptions.verify(message.stream);
                                 if (error)
                                     return "stream." + error;
                             }
@@ -2452,7 +2452,7 @@ export const event_store = $root.event_store = (() => {
                                 return "streamOption: multiple values";
                             properties.streamOption = 1;
                             {
-                                let error = $root.event_store.client.streams.ReadReq.Options.AllOptions.verify(message.all);
+                                var error = $root.event_store.client.streams.ReadReq.Options.AllOptions.verify(message.all);
                                 if (error)
                                     return "all." + error;
                             }
@@ -2478,7 +2478,7 @@ export const event_store = $root.event_store = (() => {
                                 return "countOption: multiple values";
                             properties.countOption = 1;
                             {
-                                let error = $root.event_store.client.streams.ReadReq.Options.SubscriptionOptions.verify(message.subscription);
+                                var error = $root.event_store.client.streams.ReadReq.Options.SubscriptionOptions.verify(message.subscription);
                                 if (error)
                                     return "subscription." + error;
                             }
@@ -2486,7 +2486,7 @@ export const event_store = $root.event_store = (() => {
                         if (message.filter != null && message.hasOwnProperty("filter")) {
                             properties.filterOption = 1;
                             {
-                                let error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.verify(message.filter);
+                                var error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.verify(message.filter);
                                 if (error)
                                     return "filter." + error;
                             }
@@ -2496,13 +2496,13 @@ export const event_store = $root.event_store = (() => {
                                 return "filterOption: multiple values";
                             properties.filterOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noFilter);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noFilter);
                                 if (error)
                                     return "noFilter." + error;
                             }
                         }
                         if (message.uuidOption != null && message.hasOwnProperty("uuidOption")) {
-                            let error = $root.event_store.client.streams.ReadReq.Options.UUIDOption.verify(message.uuidOption);
+                            var error = $root.event_store.client.streams.ReadReq.Options.UUIDOption.verify(message.uuidOption);
                             if (error)
                                 return "uuidOption." + error;
                         }
@@ -2520,7 +2520,7 @@ export const event_store = $root.event_store = (() => {
                     Options.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.ReadReq.Options)
                             return object;
-                        let message = new $root.event_store.client.streams.ReadReq.Options();
+                        var message = new $root.event_store.client.streams.ReadReq.Options();
                         if (object.stream != null) {
                             if (typeof object.stream !== "object")
                                 throw TypeError(".event_store.client.streams.ReadReq.Options.stream: object expected");
@@ -2587,7 +2587,7 @@ export const event_store = $root.event_store = (() => {
                     Options.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             object.readDirection = options.enums === String ? "Forwards" : 0;
                             object.resolveLinks = false;
@@ -2654,7 +2654,7 @@ export const event_store = $root.event_store = (() => {
                      * @property {number} Backwards=1 Backwards value
                      */
                     Options.ReadDirection = (function() {
-                        const valuesById = {}, values = Object.create(valuesById);
+                        var valuesById = {}, values = Object.create(valuesById);
                         values[valuesById[0] = "Forwards"] = 0;
                         values[valuesById[1] = "Backwards"] = 1;
                         return values;
@@ -2682,7 +2682,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function StreamOptions(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -2720,7 +2720,7 @@ export const event_store = $root.event_store = (() => {
                         StreamOptions.prototype.end = null;
 
                         // OneOf field names bound to virtual getters and setters
-                        let $oneOfFields;
+                        var $oneOfFields;
 
                         /**
                          * StreamOptions revisionOption.
@@ -2795,9 +2795,9 @@ export const event_store = $root.event_store = (() => {
                         StreamOptions.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.StreamOptions();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.StreamOptions();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.streamIdentifier = $root.event_store.client.shared.StreamIdentifier.decode(reader, reader.uint32());
@@ -2846,9 +2846,9 @@ export const event_store = $root.event_store = (() => {
                         StreamOptions.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            let properties = {};
+                            var properties = {};
                             if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                                let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                                var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                                 if (error)
                                     return "streamIdentifier." + error;
                             }
@@ -2862,7 +2862,7 @@ export const event_store = $root.event_store = (() => {
                                     return "revisionOption: multiple values";
                                 properties.revisionOption = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.start);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.start);
                                     if (error)
                                         return "start." + error;
                                 }
@@ -2872,7 +2872,7 @@ export const event_store = $root.event_store = (() => {
                                     return "revisionOption: multiple values";
                                 properties.revisionOption = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.end);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.end);
                                     if (error)
                                         return "end." + error;
                                 }
@@ -2891,7 +2891,7 @@ export const event_store = $root.event_store = (() => {
                         StreamOptions.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadReq.Options.StreamOptions)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadReq.Options.StreamOptions();
+                            var message = new $root.event_store.client.streams.ReadReq.Options.StreamOptions();
                             if (object.streamIdentifier != null) {
                                 if (typeof object.streamIdentifier !== "object")
                                     throw TypeError(".event_store.client.streams.ReadReq.Options.StreamOptions.streamIdentifier: object expected");
@@ -2931,7 +2931,7 @@ export const event_store = $root.event_store = (() => {
                         StreamOptions.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (options.defaults)
                                 object.streamIdentifier = null;
                             if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier"))
@@ -2992,7 +2992,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function AllOptions(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -3022,7 +3022,7 @@ export const event_store = $root.event_store = (() => {
                         AllOptions.prototype.end = null;
 
                         // OneOf field names bound to virtual getters and setters
-                        let $oneOfFields;
+                        var $oneOfFields;
 
                         /**
                          * AllOptions allOption.
@@ -3095,9 +3095,9 @@ export const event_store = $root.event_store = (() => {
                         AllOptions.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.AllOptions();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.AllOptions();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.position = $root.event_store.client.streams.ReadReq.Options.Position.decode(reader, reader.uint32());
@@ -3143,11 +3143,11 @@ export const event_store = $root.event_store = (() => {
                         AllOptions.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            let properties = {};
+                            var properties = {};
                             if (message.position != null && message.hasOwnProperty("position")) {
                                 properties.allOption = 1;
                                 {
-                                    let error = $root.event_store.client.streams.ReadReq.Options.Position.verify(message.position);
+                                    var error = $root.event_store.client.streams.ReadReq.Options.Position.verify(message.position);
                                     if (error)
                                         return "position." + error;
                                 }
@@ -3157,7 +3157,7 @@ export const event_store = $root.event_store = (() => {
                                     return "allOption: multiple values";
                                 properties.allOption = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.start);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.start);
                                     if (error)
                                         return "start." + error;
                                 }
@@ -3167,7 +3167,7 @@ export const event_store = $root.event_store = (() => {
                                     return "allOption: multiple values";
                                 properties.allOption = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.end);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.end);
                                     if (error)
                                         return "end." + error;
                                 }
@@ -3186,7 +3186,7 @@ export const event_store = $root.event_store = (() => {
                         AllOptions.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadReq.Options.AllOptions)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadReq.Options.AllOptions();
+                            var message = new $root.event_store.client.streams.ReadReq.Options.AllOptions();
                             if (object.position != null) {
                                 if (typeof object.position !== "object")
                                     throw TypeError(".event_store.client.streams.ReadReq.Options.AllOptions.position: object expected");
@@ -3217,7 +3217,7 @@ export const event_store = $root.event_store = (() => {
                         AllOptions.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (message.position != null && message.hasOwnProperty("position")) {
                                 object.position = $root.event_store.client.streams.ReadReq.Options.Position.toObject(message.position, options);
                                 if (options.oneofs)
@@ -3268,7 +3268,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function SubscriptionOptions(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -3327,9 +3327,9 @@ export const event_store = $root.event_store = (() => {
                         SubscriptionOptions.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.SubscriptionOptions();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.SubscriptionOptions();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 default:
                                     reader.skipType(tag & 7);
@@ -3430,7 +3430,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function Position(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -3509,9 +3509,9 @@ export const event_store = $root.event_store = (() => {
                         Position.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.Position();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.Position();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.commitPosition = reader.uint64();
@@ -3574,7 +3574,7 @@ export const event_store = $root.event_store = (() => {
                         Position.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadReq.Options.Position)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadReq.Options.Position();
+                            var message = new $root.event_store.client.streams.ReadReq.Options.Position();
                             if (object.commitPosition != null)
                                 if ($util.Long)
                                     (message.commitPosition = $util.Long.fromValue(object.commitPosition)).unsigned = true;
@@ -3608,15 +3608,15 @@ export const event_store = $root.event_store = (() => {
                         Position.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (options.defaults) {
                                 if ($util.Long) {
-                                    let long = new $util.Long(0, 0, true);
+                                    var long = new $util.Long(0, 0, true);
                                     object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                                 } else
                                     object.commitPosition = options.longs === String ? "0" : 0;
                                 if ($util.Long) {
-                                    let long = new $util.Long(0, 0, true);
+                                    var long = new $util.Long(0, 0, true);
                                     object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                                 } else
                                     object.preparePosition = options.longs === String ? "0" : 0;
@@ -3671,7 +3671,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function FilterOptions(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -3717,7 +3717,7 @@ export const event_store = $root.event_store = (() => {
                         FilterOptions.prototype.checkpointIntervalMultiplier = 0;
 
                         // OneOf field names bound to virtual getters and setters
-                        let $oneOfFields;
+                        var $oneOfFields;
 
                         /**
                          * FilterOptions filter.
@@ -3805,9 +3805,9 @@ export const event_store = $root.event_store = (() => {
                         FilterOptions.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.streamIdentifier = $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression.decode(reader, reader.uint32());
@@ -3859,11 +3859,11 @@ export const event_store = $root.event_store = (() => {
                         FilterOptions.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            let properties = {};
+                            var properties = {};
                             if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
                                 properties.filter = 1;
                                 {
-                                    let error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression.verify(message.streamIdentifier);
+                                    var error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression.verify(message.streamIdentifier);
                                     if (error)
                                         return "streamIdentifier." + error;
                                 }
@@ -3873,7 +3873,7 @@ export const event_store = $root.event_store = (() => {
                                     return "filter: multiple values";
                                 properties.filter = 1;
                                 {
-                                    let error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression.verify(message.eventType);
+                                    var error = $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression.verify(message.eventType);
                                     if (error)
                                         return "eventType." + error;
                                 }
@@ -3888,7 +3888,7 @@ export const event_store = $root.event_store = (() => {
                                     return "window: multiple values";
                                 properties.window = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.count);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.count);
                                     if (error)
                                         return "count." + error;
                                 }
@@ -3910,7 +3910,7 @@ export const event_store = $root.event_store = (() => {
                         FilterOptions.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadReq.Options.FilterOptions)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions();
+                            var message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions();
                             if (object.streamIdentifier != null) {
                                 if (typeof object.streamIdentifier !== "object")
                                     throw TypeError(".event_store.client.streams.ReadReq.Options.FilterOptions.streamIdentifier: object expected");
@@ -3945,7 +3945,7 @@ export const event_store = $root.event_store = (() => {
                         FilterOptions.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (options.defaults)
                                 object.checkpointIntervalMultiplier = 0;
                             if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
@@ -4005,7 +4005,7 @@ export const event_store = $root.event_store = (() => {
                             function Expression(properties) {
                                 this.prefix = [];
                                 if (properties)
-                                    for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                         if (properties[keys[i]] != null)
                                             this[keys[i]] = properties[keys[i]];
                             }
@@ -4053,7 +4053,7 @@ export const event_store = $root.event_store = (() => {
                                 if (message.regex != null && Object.hasOwnProperty.call(message, "regex"))
                                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.regex);
                                 if (message.prefix != null && message.prefix.length)
-                                    for (let i = 0; i < message.prefix.length; ++i)
+                                    for (var i = 0; i < message.prefix.length; ++i)
                                         writer.uint32(/* id 2, wireType 2 =*/18).string(message.prefix[i]);
                                 return writer;
                             };
@@ -4085,9 +4085,9 @@ export const event_store = $root.event_store = (() => {
                             Expression.decode = function decode(reader, length) {
                                 if (!(reader instanceof $Reader))
                                     reader = $Reader.create(reader);
-                                let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression();
+                                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression();
                                 while (reader.pos < end) {
-                                    let tag = reader.uint32();
+                                    var tag = reader.uint32();
                                     switch (tag >>> 3) {
                                     case 1:
                                         message.regex = reader.string();
@@ -4138,7 +4138,7 @@ export const event_store = $root.event_store = (() => {
                                 if (message.prefix != null && message.hasOwnProperty("prefix")) {
                                     if (!Array.isArray(message.prefix))
                                         return "prefix: array expected";
-                                    for (let i = 0; i < message.prefix.length; ++i)
+                                    for (var i = 0; i < message.prefix.length; ++i)
                                         if (!$util.isString(message.prefix[i]))
                                             return "prefix: string[] expected";
                                 }
@@ -4156,14 +4156,14 @@ export const event_store = $root.event_store = (() => {
                             Expression.fromObject = function fromObject(object) {
                                 if (object instanceof $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression)
                                     return object;
-                                let message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression();
+                                var message = new $root.event_store.client.streams.ReadReq.Options.FilterOptions.Expression();
                                 if (object.regex != null)
                                     message.regex = String(object.regex);
                                 if (object.prefix) {
                                     if (!Array.isArray(object.prefix))
                                         throw TypeError(".event_store.client.streams.ReadReq.Options.FilterOptions.Expression.prefix: array expected");
                                     message.prefix = [];
-                                    for (let i = 0; i < object.prefix.length; ++i)
+                                    for (var i = 0; i < object.prefix.length; ++i)
                                         message.prefix[i] = String(object.prefix[i]);
                                 }
                                 return message;
@@ -4181,7 +4181,7 @@ export const event_store = $root.event_store = (() => {
                             Expression.toObject = function toObject(message, options) {
                                 if (!options)
                                     options = {};
-                                let object = {};
+                                var object = {};
                                 if (options.arrays || options.defaults)
                                     object.prefix = [];
                                 if (options.defaults)
@@ -4190,7 +4190,7 @@ export const event_store = $root.event_store = (() => {
                                     object.regex = message.regex;
                                 if (message.prefix && message.prefix.length) {
                                     object.prefix = [];
-                                    for (let j = 0; j < message.prefix.length; ++j)
+                                    for (var j = 0; j < message.prefix.length; ++j)
                                         object.prefix[j] = message.prefix[j];
                                 }
                                 return object;
@@ -4233,7 +4233,7 @@ export const event_store = $root.event_store = (() => {
                          */
                         function UUIDOption(properties) {
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -4255,7 +4255,7 @@ export const event_store = $root.event_store = (() => {
                         UUIDOption.prototype.string = null;
 
                         // OneOf field names bound to virtual getters and setters
-                        let $oneOfFields;
+                        var $oneOfFields;
 
                         /**
                          * UUIDOption content.
@@ -4326,9 +4326,9 @@ export const event_store = $root.event_store = (() => {
                         UUIDOption.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.UUIDOption();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadReq.Options.UUIDOption();
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.structured = $root.event_store.client.shared.Empty.decode(reader, reader.uint32());
@@ -4371,11 +4371,11 @@ export const event_store = $root.event_store = (() => {
                         UUIDOption.verify = function verify(message) {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
-                            let properties = {};
+                            var properties = {};
                             if (message.structured != null && message.hasOwnProperty("structured")) {
                                 properties.content = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.structured);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.structured);
                                     if (error)
                                         return "structured." + error;
                                 }
@@ -4385,7 +4385,7 @@ export const event_store = $root.event_store = (() => {
                                     return "content: multiple values";
                                 properties.content = 1;
                                 {
-                                    let error = $root.event_store.client.shared.Empty.verify(message.string);
+                                    var error = $root.event_store.client.shared.Empty.verify(message.string);
                                     if (error)
                                         return "string." + error;
                                 }
@@ -4404,7 +4404,7 @@ export const event_store = $root.event_store = (() => {
                         UUIDOption.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadReq.Options.UUIDOption)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadReq.Options.UUIDOption();
+                            var message = new $root.event_store.client.streams.ReadReq.Options.UUIDOption();
                             if (object.structured != null) {
                                 if (typeof object.structured !== "object")
                                     throw TypeError(".event_store.client.streams.ReadReq.Options.UUIDOption.structured: object expected");
@@ -4430,7 +4430,7 @@ export const event_store = $root.event_store = (() => {
                         UUIDOption.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (message.structured != null && message.hasOwnProperty("structured")) {
                                 object.structured = $root.event_store.client.shared.Empty.toObject(message.structured, options);
                                 if (options.oneofs)
@@ -4486,7 +4486,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function ReadResp(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -4524,7 +4524,7 @@ export const event_store = $root.event_store = (() => {
                 ReadResp.prototype.streamNotFound = null;
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * ReadResp content.
@@ -4599,9 +4599,9 @@ export const event_store = $root.event_store = (() => {
                 ReadResp.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.event = $root.event_store.client.streams.ReadResp.ReadEvent.decode(reader, reader.uint32());
@@ -4650,11 +4650,11 @@ export const event_store = $root.event_store = (() => {
                 ReadResp.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.event != null && message.hasOwnProperty("event")) {
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.ReadResp.ReadEvent.verify(message.event);
+                            var error = $root.event_store.client.streams.ReadResp.ReadEvent.verify(message.event);
                             if (error)
                                 return "event." + error;
                         }
@@ -4664,7 +4664,7 @@ export const event_store = $root.event_store = (() => {
                             return "content: multiple values";
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.ReadResp.SubscriptionConfirmation.verify(message.confirmation);
+                            var error = $root.event_store.client.streams.ReadResp.SubscriptionConfirmation.verify(message.confirmation);
                             if (error)
                                 return "confirmation." + error;
                         }
@@ -4674,7 +4674,7 @@ export const event_store = $root.event_store = (() => {
                             return "content: multiple values";
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.ReadResp.Checkpoint.verify(message.checkpoint);
+                            var error = $root.event_store.client.streams.ReadResp.Checkpoint.verify(message.checkpoint);
                             if (error)
                                 return "checkpoint." + error;
                         }
@@ -4684,7 +4684,7 @@ export const event_store = $root.event_store = (() => {
                             return "content: multiple values";
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.ReadResp.StreamNotFound.verify(message.streamNotFound);
+                            var error = $root.event_store.client.streams.ReadResp.StreamNotFound.verify(message.streamNotFound);
                             if (error)
                                 return "streamNotFound." + error;
                         }
@@ -4703,7 +4703,7 @@ export const event_store = $root.event_store = (() => {
                 ReadResp.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.ReadResp)
                         return object;
-                    let message = new $root.event_store.client.streams.ReadResp();
+                    var message = new $root.event_store.client.streams.ReadResp();
                     if (object.event != null) {
                         if (typeof object.event !== "object")
                             throw TypeError(".event_store.client.streams.ReadResp.event: object expected");
@@ -4739,7 +4739,7 @@ export const event_store = $root.event_store = (() => {
                 ReadResp.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.event != null && message.hasOwnProperty("event")) {
                         object.event = $root.event_store.client.streams.ReadResp.ReadEvent.toObject(message.event, options);
                         if (options.oneofs)
@@ -4796,7 +4796,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function ReadEvent(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -4834,7 +4834,7 @@ export const event_store = $root.event_store = (() => {
                     ReadEvent.prototype.noPosition = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * ReadEvent position.
@@ -4909,9 +4909,9 @@ export const event_store = $root.event_store = (() => {
                     ReadEvent.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.ReadEvent();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.ReadEvent();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.event = $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.decode(reader, reader.uint32());
@@ -4960,14 +4960,14 @@ export const event_store = $root.event_store = (() => {
                     ReadEvent.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.event != null && message.hasOwnProperty("event")) {
-                            let error = $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.verify(message.event);
+                            var error = $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.verify(message.event);
                             if (error)
                                 return "event." + error;
                         }
                         if (message.link != null && message.hasOwnProperty("link")) {
-                            let error = $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.verify(message.link);
+                            var error = $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.verify(message.link);
                             if (error)
                                 return "link." + error;
                         }
@@ -4981,7 +4981,7 @@ export const event_store = $root.event_store = (() => {
                                 return "position: multiple values";
                             properties.position = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noPosition);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noPosition);
                                 if (error)
                                     return "noPosition." + error;
                             }
@@ -5000,7 +5000,7 @@ export const event_store = $root.event_store = (() => {
                     ReadEvent.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.ReadResp.ReadEvent)
                             return object;
-                        let message = new $root.event_store.client.streams.ReadResp.ReadEvent();
+                        var message = new $root.event_store.client.streams.ReadResp.ReadEvent();
                         if (object.event != null) {
                             if (typeof object.event !== "object")
                                 throw TypeError(".event_store.client.streams.ReadResp.ReadEvent.event: object expected");
@@ -5040,7 +5040,7 @@ export const event_store = $root.event_store = (() => {
                     ReadEvent.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             object.event = null;
                             object.link = null;
@@ -5103,7 +5103,7 @@ export const event_store = $root.event_store = (() => {
                         function RecordedEvent(properties) {
                             this.metadata = {};
                             if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
                                         this[keys[i]] = properties[keys[i]];
                         }
@@ -5207,7 +5207,7 @@ export const event_store = $root.event_store = (() => {
                             if (message.commitPosition != null && Object.hasOwnProperty.call(message, "commitPosition"))
                                 writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.commitPosition);
                             if (message.metadata != null && Object.hasOwnProperty.call(message, "metadata"))
-                                for (let keys = Object.keys(message.metadata), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(message.metadata), i = 0; i < keys.length; ++i)
                                     writer.uint32(/* id 6, wireType 2 =*/50).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.metadata[keys[i]]).ldelim();
                             if (message.customMetadata != null && Object.hasOwnProperty.call(message, "customMetadata"))
                                 writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.customMetadata);
@@ -5243,9 +5243,9 @@ export const event_store = $root.event_store = (() => {
                         RecordedEvent.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent(), key, value;
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent(), key, value;
                             while (reader.pos < end) {
-                                let tag = reader.uint32();
+                                var tag = reader.uint32();
                                 switch (tag >>> 3) {
                                 case 1:
                                     message.id = $root.event_store.client.shared.UUID.decode(reader, reader.uint32());
@@ -5265,11 +5265,11 @@ export const event_store = $root.event_store = (() => {
                                 case 6:
                                     if (message.metadata === $util.emptyObject)
                                         message.metadata = {};
-                                    let end2 = reader.uint32() + reader.pos;
+                                    var end2 = reader.uint32() + reader.pos;
                                     key = "";
                                     value = "";
                                     while (reader.pos < end2) {
-                                        let tag2 = reader.uint32();
+                                        var tag2 = reader.uint32();
                                         switch (tag2 >>> 3) {
                                         case 1:
                                             key = reader.string();
@@ -5326,12 +5326,12 @@ export const event_store = $root.event_store = (() => {
                             if (typeof message !== "object" || message === null)
                                 return "object expected";
                             if (message.id != null && message.hasOwnProperty("id")) {
-                                let error = $root.event_store.client.shared.UUID.verify(message.id);
+                                var error = $root.event_store.client.shared.UUID.verify(message.id);
                                 if (error)
                                     return "id." + error;
                             }
                             if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                                let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                                var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                                 if (error)
                                     return "streamIdentifier." + error;
                             }
@@ -5347,8 +5347,8 @@ export const event_store = $root.event_store = (() => {
                             if (message.metadata != null && message.hasOwnProperty("metadata")) {
                                 if (!$util.isObject(message.metadata))
                                     return "metadata: object expected";
-                                let key = Object.keys(message.metadata);
-                                for (let i = 0; i < key.length; ++i)
+                                var key = Object.keys(message.metadata);
+                                for (var i = 0; i < key.length; ++i)
                                     if (!$util.isString(message.metadata[key[i]]))
                                         return "metadata: string{k:string} expected";
                             }
@@ -5372,7 +5372,7 @@ export const event_store = $root.event_store = (() => {
                         RecordedEvent.fromObject = function fromObject(object) {
                             if (object instanceof $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent)
                                 return object;
-                            let message = new $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent();
+                            var message = new $root.event_store.client.streams.ReadResp.ReadEvent.RecordedEvent();
                             if (object.id != null) {
                                 if (typeof object.id !== "object")
                                     throw TypeError(".event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.id: object expected");
@@ -5414,7 +5414,7 @@ export const event_store = $root.event_store = (() => {
                                 if (typeof object.metadata !== "object")
                                     throw TypeError(".event_store.client.streams.ReadResp.ReadEvent.RecordedEvent.metadata: object expected");
                                 message.metadata = {};
-                                for (let keys = Object.keys(object.metadata), i = 0; i < keys.length; ++i)
+                                for (var keys = Object.keys(object.metadata), i = 0; i < keys.length; ++i)
                                     message.metadata[keys[i]] = String(object.metadata[keys[i]]);
                             }
                             if (object.customMetadata != null)
@@ -5442,24 +5442,24 @@ export const event_store = $root.event_store = (() => {
                         RecordedEvent.toObject = function toObject(message, options) {
                             if (!options)
                                 options = {};
-                            let object = {};
+                            var object = {};
                             if (options.objects || options.defaults)
                                 object.metadata = {};
                             if (options.defaults) {
                                 object.id = null;
                                 object.streamIdentifier = null;
                                 if ($util.Long) {
-                                    let long = new $util.Long(0, 0, true);
+                                    var long = new $util.Long(0, 0, true);
                                     object.streamRevision = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                                 } else
                                     object.streamRevision = options.longs === String ? "0" : 0;
                                 if ($util.Long) {
-                                    let long = new $util.Long(0, 0, true);
+                                    var long = new $util.Long(0, 0, true);
                                     object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                                 } else
                                     object.preparePosition = options.longs === String ? "0" : 0;
                                 if ($util.Long) {
-                                    let long = new $util.Long(0, 0, true);
+                                    var long = new $util.Long(0, 0, true);
                                     object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                                 } else
                                     object.commitPosition = options.longs === String ? "0" : 0;
@@ -5497,10 +5497,10 @@ export const event_store = $root.event_store = (() => {
                                     object.commitPosition = options.longs === String ? String(message.commitPosition) : message.commitPosition;
                                 else
                                     object.commitPosition = options.longs === String ? $util.Long.prototype.toString.call(message.commitPosition) : options.longs === Number ? new $util.LongBits(message.commitPosition.low >>> 0, message.commitPosition.high >>> 0).toNumber(true) : message.commitPosition;
-                            let keys2;
+                            var keys2;
                             if (message.metadata && (keys2 = Object.keys(message.metadata)).length) {
                                 object.metadata = {};
-                                for (let j = 0; j < keys2.length; ++j)
+                                for (var j = 0; j < keys2.length; ++j)
                                     object.metadata[keys2[j]] = message.metadata[keys2[j]];
                             }
                             if (message.customMetadata != null && message.hasOwnProperty("customMetadata"))
@@ -5546,7 +5546,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function SubscriptionConfirmation(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -5615,9 +5615,9 @@ export const event_store = $root.event_store = (() => {
                     SubscriptionConfirmation.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.SubscriptionConfirmation();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.SubscriptionConfirmation();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.subscriptionId = reader.string();
@@ -5674,7 +5674,7 @@ export const event_store = $root.event_store = (() => {
                     SubscriptionConfirmation.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.ReadResp.SubscriptionConfirmation)
                             return object;
-                        let message = new $root.event_store.client.streams.ReadResp.SubscriptionConfirmation();
+                        var message = new $root.event_store.client.streams.ReadResp.SubscriptionConfirmation();
                         if (object.subscriptionId != null)
                             message.subscriptionId = String(object.subscriptionId);
                         return message;
@@ -5692,7 +5692,7 @@ export const event_store = $root.event_store = (() => {
                     SubscriptionConfirmation.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults)
                             object.subscriptionId = "";
                         if (message.subscriptionId != null && message.hasOwnProperty("subscriptionId"))
@@ -5734,7 +5734,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Checkpoint(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -5813,9 +5813,9 @@ export const event_store = $root.event_store = (() => {
                     Checkpoint.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.Checkpoint();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.Checkpoint();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.commitPosition = reader.uint64();
@@ -5878,7 +5878,7 @@ export const event_store = $root.event_store = (() => {
                     Checkpoint.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.ReadResp.Checkpoint)
                             return object;
-                        let message = new $root.event_store.client.streams.ReadResp.Checkpoint();
+                        var message = new $root.event_store.client.streams.ReadResp.Checkpoint();
                         if (object.commitPosition != null)
                             if ($util.Long)
                                 (message.commitPosition = $util.Long.fromValue(object.commitPosition)).unsigned = true;
@@ -5912,15 +5912,15 @@ export const event_store = $root.event_store = (() => {
                     Checkpoint.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.commitPosition = options.longs === String ? "0" : 0;
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.preparePosition = options.longs === String ? "0" : 0;
@@ -5971,7 +5971,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function StreamNotFound(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -6040,9 +6040,9 @@ export const event_store = $root.event_store = (() => {
                     StreamNotFound.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.StreamNotFound();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.ReadResp.StreamNotFound();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.streamIdentifier = $root.event_store.client.shared.StreamIdentifier.decode(reader, reader.uint32());
@@ -6083,7 +6083,7 @@ export const event_store = $root.event_store = (() => {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                            let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                            var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                             if (error)
                                 return "streamIdentifier." + error;
                         }
@@ -6101,7 +6101,7 @@ export const event_store = $root.event_store = (() => {
                     StreamNotFound.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.ReadResp.StreamNotFound)
                             return object;
-                        let message = new $root.event_store.client.streams.ReadResp.StreamNotFound();
+                        var message = new $root.event_store.client.streams.ReadResp.StreamNotFound();
                         if (object.streamIdentifier != null) {
                             if (typeof object.streamIdentifier !== "object")
                                 throw TypeError(".event_store.client.streams.ReadResp.StreamNotFound.streamIdentifier: object expected");
@@ -6122,7 +6122,7 @@ export const event_store = $root.event_store = (() => {
                     StreamNotFound.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults)
                             object.streamIdentifier = null;
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier"))
@@ -6167,7 +6167,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function AppendReq(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -6189,7 +6189,7 @@ export const event_store = $root.event_store = (() => {
                 AppendReq.prototype.proposedMessage = null;
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * AppendReq content.
@@ -6260,9 +6260,9 @@ export const event_store = $root.event_store = (() => {
                 AppendReq.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.options = $root.event_store.client.streams.AppendReq.Options.decode(reader, reader.uint32());
@@ -6305,11 +6305,11 @@ export const event_store = $root.event_store = (() => {
                 AppendReq.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.options != null && message.hasOwnProperty("options")) {
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.AppendReq.Options.verify(message.options);
+                            var error = $root.event_store.client.streams.AppendReq.Options.verify(message.options);
                             if (error)
                                 return "options." + error;
                         }
@@ -6319,7 +6319,7 @@ export const event_store = $root.event_store = (() => {
                             return "content: multiple values";
                         properties.content = 1;
                         {
-                            let error = $root.event_store.client.streams.AppendReq.ProposedMessage.verify(message.proposedMessage);
+                            var error = $root.event_store.client.streams.AppendReq.ProposedMessage.verify(message.proposedMessage);
                             if (error)
                                 return "proposedMessage." + error;
                         }
@@ -6338,7 +6338,7 @@ export const event_store = $root.event_store = (() => {
                 AppendReq.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.AppendReq)
                         return object;
-                    let message = new $root.event_store.client.streams.AppendReq();
+                    var message = new $root.event_store.client.streams.AppendReq();
                     if (object.options != null) {
                         if (typeof object.options !== "object")
                             throw TypeError(".event_store.client.streams.AppendReq.options: object expected");
@@ -6364,7 +6364,7 @@ export const event_store = $root.event_store = (() => {
                 AppendReq.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.options != null && message.hasOwnProperty("options")) {
                         object.options = $root.event_store.client.streams.AppendReq.Options.toObject(message.options, options);
                         if (options.oneofs)
@@ -6412,7 +6412,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Options(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -6458,7 +6458,7 @@ export const event_store = $root.event_store = (() => {
                     Options.prototype.streamExists = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * Options expectedStreamRevision.
@@ -6535,9 +6535,9 @@ export const event_store = $root.event_store = (() => {
                     Options.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq.Options();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq.Options();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.streamIdentifier = $root.event_store.client.shared.StreamIdentifier.decode(reader, reader.uint32());
@@ -6589,9 +6589,9 @@ export const event_store = $root.event_store = (() => {
                     Options.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                            let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                            var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                             if (error)
                                 return "streamIdentifier." + error;
                         }
@@ -6605,7 +6605,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noStream);
                                 if (error)
                                     return "noStream." + error;
                             }
@@ -6615,7 +6615,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.any);
+                                var error = $root.event_store.client.shared.Empty.verify(message.any);
                                 if (error)
                                     return "any." + error;
                             }
@@ -6625,7 +6625,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.streamExists);
+                                var error = $root.event_store.client.shared.Empty.verify(message.streamExists);
                                 if (error)
                                     return "streamExists." + error;
                             }
@@ -6644,7 +6644,7 @@ export const event_store = $root.event_store = (() => {
                     Options.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.AppendReq.Options)
                             return object;
-                        let message = new $root.event_store.client.streams.AppendReq.Options();
+                        var message = new $root.event_store.client.streams.AppendReq.Options();
                         if (object.streamIdentifier != null) {
                             if (typeof object.streamIdentifier !== "object")
                                 throw TypeError(".event_store.client.streams.AppendReq.Options.streamIdentifier: object expected");
@@ -6689,7 +6689,7 @@ export const event_store = $root.event_store = (() => {
                     Options.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults)
                             object.streamIdentifier = null;
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier"))
@@ -6757,7 +6757,7 @@ export const event_store = $root.event_store = (() => {
                     function ProposedMessage(properties) {
                         this.metadata = {};
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -6821,7 +6821,7 @@ export const event_store = $root.event_store = (() => {
                         if (message.id != null && Object.hasOwnProperty.call(message, "id"))
                             $root.event_store.client.shared.UUID.encode(message.id, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         if (message.metadata != null && Object.hasOwnProperty.call(message, "metadata"))
-                            for (let keys = Object.keys(message.metadata), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(message.metadata), i = 0; i < keys.length; ++i)
                                 writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.metadata[keys[i]]).ldelim();
                         if (message.customMetadata != null && Object.hasOwnProperty.call(message, "customMetadata"))
                             writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.customMetadata);
@@ -6857,9 +6857,9 @@ export const event_store = $root.event_store = (() => {
                     ProposedMessage.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq.ProposedMessage(), key, value;
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendReq.ProposedMessage(), key, value;
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.id = $root.event_store.client.shared.UUID.decode(reader, reader.uint32());
@@ -6867,11 +6867,11 @@ export const event_store = $root.event_store = (() => {
                             case 2:
                                 if (message.metadata === $util.emptyObject)
                                     message.metadata = {};
-                                let end2 = reader.uint32() + reader.pos;
+                                var end2 = reader.uint32() + reader.pos;
                                 key = "";
                                 value = "";
                                 while (reader.pos < end2) {
-                                    let tag2 = reader.uint32();
+                                    var tag2 = reader.uint32();
                                     switch (tag2 >>> 3) {
                                     case 1:
                                         key = reader.string();
@@ -6928,15 +6928,15 @@ export const event_store = $root.event_store = (() => {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.id != null && message.hasOwnProperty("id")) {
-                            let error = $root.event_store.client.shared.UUID.verify(message.id);
+                            var error = $root.event_store.client.shared.UUID.verify(message.id);
                             if (error)
                                 return "id." + error;
                         }
                         if (message.metadata != null && message.hasOwnProperty("metadata")) {
                             if (!$util.isObject(message.metadata))
                                 return "metadata: object expected";
-                            let key = Object.keys(message.metadata);
-                            for (let i = 0; i < key.length; ++i)
+                            var key = Object.keys(message.metadata);
+                            for (var i = 0; i < key.length; ++i)
                                 if (!$util.isString(message.metadata[key[i]]))
                                     return "metadata: string{k:string} expected";
                         }
@@ -6960,7 +6960,7 @@ export const event_store = $root.event_store = (() => {
                     ProposedMessage.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.AppendReq.ProposedMessage)
                             return object;
-                        let message = new $root.event_store.client.streams.AppendReq.ProposedMessage();
+                        var message = new $root.event_store.client.streams.AppendReq.ProposedMessage();
                         if (object.id != null) {
                             if (typeof object.id !== "object")
                                 throw TypeError(".event_store.client.streams.AppendReq.ProposedMessage.id: object expected");
@@ -6970,7 +6970,7 @@ export const event_store = $root.event_store = (() => {
                             if (typeof object.metadata !== "object")
                                 throw TypeError(".event_store.client.streams.AppendReq.ProposedMessage.metadata: object expected");
                             message.metadata = {};
-                            for (let keys = Object.keys(object.metadata), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(object.metadata), i = 0; i < keys.length; ++i)
                                 message.metadata[keys[i]] = String(object.metadata[keys[i]]);
                         }
                         if (object.customMetadata != null)
@@ -6998,7 +6998,7 @@ export const event_store = $root.event_store = (() => {
                     ProposedMessage.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.objects || options.defaults)
                             object.metadata = {};
                         if (options.defaults) {
@@ -7020,10 +7020,10 @@ export const event_store = $root.event_store = (() => {
                         }
                         if (message.id != null && message.hasOwnProperty("id"))
                             object.id = $root.event_store.client.shared.UUID.toObject(message.id, options);
-                        let keys2;
+                        var keys2;
                         if (message.metadata && (keys2 = Object.keys(message.metadata)).length) {
                             object.metadata = {};
-                            for (let j = 0; j < keys2.length; ++j)
+                            for (var j = 0; j < keys2.length; ++j)
                                 object.metadata[keys2[j]] = message.metadata[keys2[j]];
                         }
                         if (message.customMetadata != null && message.hasOwnProperty("customMetadata"))
@@ -7070,7 +7070,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function AppendResp(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -7092,7 +7092,7 @@ export const event_store = $root.event_store = (() => {
                 AppendResp.prototype.wrongExpectedVersion = null;
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * AppendResp result.
@@ -7163,9 +7163,9 @@ export const event_store = $root.event_store = (() => {
                 AppendResp.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.success = $root.event_store.client.streams.AppendResp.Success.decode(reader, reader.uint32());
@@ -7208,11 +7208,11 @@ export const event_store = $root.event_store = (() => {
                 AppendResp.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.success != null && message.hasOwnProperty("success")) {
                         properties.result = 1;
                         {
-                            let error = $root.event_store.client.streams.AppendResp.Success.verify(message.success);
+                            var error = $root.event_store.client.streams.AppendResp.Success.verify(message.success);
                             if (error)
                                 return "success." + error;
                         }
@@ -7222,7 +7222,7 @@ export const event_store = $root.event_store = (() => {
                             return "result: multiple values";
                         properties.result = 1;
                         {
-                            let error = $root.event_store.client.streams.AppendResp.WrongExpectedVersion.verify(message.wrongExpectedVersion);
+                            var error = $root.event_store.client.streams.AppendResp.WrongExpectedVersion.verify(message.wrongExpectedVersion);
                             if (error)
                                 return "wrongExpectedVersion." + error;
                         }
@@ -7241,7 +7241,7 @@ export const event_store = $root.event_store = (() => {
                 AppendResp.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.AppendResp)
                         return object;
-                    let message = new $root.event_store.client.streams.AppendResp();
+                    var message = new $root.event_store.client.streams.AppendResp();
                     if (object.success != null) {
                         if (typeof object.success !== "object")
                             throw TypeError(".event_store.client.streams.AppendResp.success: object expected");
@@ -7267,7 +7267,7 @@ export const event_store = $root.event_store = (() => {
                 AppendResp.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.success != null && message.hasOwnProperty("success")) {
                         object.success = $root.event_store.client.streams.AppendResp.Success.toObject(message.success, options);
                         if (options.oneofs)
@@ -7312,7 +7312,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Position(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -7391,9 +7391,9 @@ export const event_store = $root.event_store = (() => {
                     Position.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.Position();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.Position();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.commitPosition = reader.uint64();
@@ -7456,7 +7456,7 @@ export const event_store = $root.event_store = (() => {
                     Position.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.AppendResp.Position)
                             return object;
-                        let message = new $root.event_store.client.streams.AppendResp.Position();
+                        var message = new $root.event_store.client.streams.AppendResp.Position();
                         if (object.commitPosition != null)
                             if ($util.Long)
                                 (message.commitPosition = $util.Long.fromValue(object.commitPosition)).unsigned = true;
@@ -7490,15 +7490,15 @@ export const event_store = $root.event_store = (() => {
                     Position.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.commitPosition = options.longs === String ? "0" : 0;
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.preparePosition = options.longs === String ? "0" : 0;
@@ -7552,7 +7552,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Success(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -7590,7 +7590,7 @@ export const event_store = $root.event_store = (() => {
                     Success.prototype.noPosition = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * Success currentRevisionOption.
@@ -7676,9 +7676,9 @@ export const event_store = $root.event_store = (() => {
                     Success.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.Success();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.Success();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.currentRevision = reader.uint64();
@@ -7727,7 +7727,7 @@ export const event_store = $root.event_store = (() => {
                     Success.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.currentRevision != null && message.hasOwnProperty("currentRevision")) {
                             properties.currentRevisionOption = 1;
                             if (!$util.isInteger(message.currentRevision) && !(message.currentRevision && $util.isInteger(message.currentRevision.low) && $util.isInteger(message.currentRevision.high)))
@@ -7738,7 +7738,7 @@ export const event_store = $root.event_store = (() => {
                                 return "currentRevisionOption: multiple values";
                             properties.currentRevisionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noStream);
                                 if (error)
                                     return "noStream." + error;
                             }
@@ -7746,7 +7746,7 @@ export const event_store = $root.event_store = (() => {
                         if (message.position != null && message.hasOwnProperty("position")) {
                             properties.positionOption = 1;
                             {
-                                let error = $root.event_store.client.streams.AppendResp.Position.verify(message.position);
+                                var error = $root.event_store.client.streams.AppendResp.Position.verify(message.position);
                                 if (error)
                                     return "position." + error;
                             }
@@ -7756,7 +7756,7 @@ export const event_store = $root.event_store = (() => {
                                 return "positionOption: multiple values";
                             properties.positionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noPosition);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noPosition);
                                 if (error)
                                     return "noPosition." + error;
                             }
@@ -7775,7 +7775,7 @@ export const event_store = $root.event_store = (() => {
                     Success.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.AppendResp.Success)
                             return object;
-                        let message = new $root.event_store.client.streams.AppendResp.Success();
+                        var message = new $root.event_store.client.streams.AppendResp.Success();
                         if (object.currentRevision != null)
                             if ($util.Long)
                                 (message.currentRevision = $util.Long.fromValue(object.currentRevision)).unsigned = true;
@@ -7815,7 +7815,7 @@ export const event_store = $root.event_store = (() => {
                     Success.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (message.currentRevision != null && message.hasOwnProperty("currentRevision")) {
                             if (typeof message.currentRevision === "number")
                                 object.currentRevision = options.longs === String ? String(message.currentRevision) : message.currentRevision;
@@ -7885,7 +7885,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function WrongExpectedVersion(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -7979,7 +7979,7 @@ export const event_store = $root.event_store = (() => {
                     WrongExpectedVersion.prototype.expectedNoStream = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * WrongExpectedVersion currentRevisionOption_20_6_0.
@@ -8101,9 +8101,9 @@ export const event_store = $root.event_store = (() => {
                     WrongExpectedVersion.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.WrongExpectedVersion();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.AppendResp.WrongExpectedVersion();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.currentRevision_20_6_0 = reader.uint64();
@@ -8173,7 +8173,7 @@ export const event_store = $root.event_store = (() => {
                     WrongExpectedVersion.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.currentRevision_20_6_0 != null && message.hasOwnProperty("currentRevision_20_6_0")) {
                             properties.currentRevisionOption_20_6_0 = 1;
                             if (!$util.isInteger(message.currentRevision_20_6_0) && !(message.currentRevision_20_6_0 && $util.isInteger(message.currentRevision_20_6_0.low) && $util.isInteger(message.currentRevision_20_6_0.high)))
@@ -8184,7 +8184,7 @@ export const event_store = $root.event_store = (() => {
                                 return "currentRevisionOption_20_6_0: multiple values";
                             properties.currentRevisionOption_20_6_0 = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noStream_20_6_0);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noStream_20_6_0);
                                 if (error)
                                     return "noStream_20_6_0." + error;
                             }
@@ -8199,7 +8199,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedRevisionOption_20_6_0: multiple values";
                             properties.expectedRevisionOption_20_6_0 = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.any_20_6_0);
+                                var error = $root.event_store.client.shared.Empty.verify(message.any_20_6_0);
                                 if (error)
                                     return "any_20_6_0." + error;
                             }
@@ -8209,7 +8209,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedRevisionOption_20_6_0: multiple values";
                             properties.expectedRevisionOption_20_6_0 = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.streamExists_20_6_0);
+                                var error = $root.event_store.client.shared.Empty.verify(message.streamExists_20_6_0);
                                 if (error)
                                     return "streamExists_20_6_0." + error;
                             }
@@ -8224,7 +8224,7 @@ export const event_store = $root.event_store = (() => {
                                 return "currentRevisionOption: multiple values";
                             properties.currentRevisionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.currentNoStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.currentNoStream);
                                 if (error)
                                     return "currentNoStream." + error;
                             }
@@ -8239,7 +8239,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedRevisionOption: multiple values";
                             properties.expectedRevisionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.expectedAny);
+                                var error = $root.event_store.client.shared.Empty.verify(message.expectedAny);
                                 if (error)
                                     return "expectedAny." + error;
                             }
@@ -8249,7 +8249,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedRevisionOption: multiple values";
                             properties.expectedRevisionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.expectedStreamExists);
+                                var error = $root.event_store.client.shared.Empty.verify(message.expectedStreamExists);
                                 if (error)
                                     return "expectedStreamExists." + error;
                             }
@@ -8259,7 +8259,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedRevisionOption: multiple values";
                             properties.expectedRevisionOption = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.expectedNoStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.expectedNoStream);
                                 if (error)
                                     return "expectedNoStream." + error;
                             }
@@ -8278,7 +8278,7 @@ export const event_store = $root.event_store = (() => {
                     WrongExpectedVersion.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.AppendResp.WrongExpectedVersion)
                             return object;
-                        let message = new $root.event_store.client.streams.AppendResp.WrongExpectedVersion();
+                        var message = new $root.event_store.client.streams.AppendResp.WrongExpectedVersion();
                         if (object.currentRevision_20_6_0 != null)
                             if ($util.Long)
                                 (message.currentRevision_20_6_0 = $util.Long.fromValue(object.currentRevision_20_6_0)).unsigned = true;
@@ -8365,7 +8365,7 @@ export const event_store = $root.event_store = (() => {
                     WrongExpectedVersion.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (message.currentRevision_20_6_0 != null && message.hasOwnProperty("currentRevision_20_6_0")) {
                             if (typeof message.currentRevision_20_6_0 === "number")
                                 object.currentRevision_20_6_0 = options.longs === String ? String(message.currentRevision_20_6_0) : message.currentRevision_20_6_0;
@@ -8472,7 +8472,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function DeleteReq(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -8541,9 +8541,9 @@ export const event_store = $root.event_store = (() => {
                 DeleteReq.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteReq();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteReq();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.options = $root.event_store.client.streams.DeleteReq.Options.decode(reader, reader.uint32());
@@ -8584,7 +8584,7 @@ export const event_store = $root.event_store = (() => {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.options != null && message.hasOwnProperty("options")) {
-                        let error = $root.event_store.client.streams.DeleteReq.Options.verify(message.options);
+                        var error = $root.event_store.client.streams.DeleteReq.Options.verify(message.options);
                         if (error)
                             return "options." + error;
                     }
@@ -8602,7 +8602,7 @@ export const event_store = $root.event_store = (() => {
                 DeleteReq.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.DeleteReq)
                         return object;
-                    let message = new $root.event_store.client.streams.DeleteReq();
+                    var message = new $root.event_store.client.streams.DeleteReq();
                     if (object.options != null) {
                         if (typeof object.options !== "object")
                             throw TypeError(".event_store.client.streams.DeleteReq.options: object expected");
@@ -8623,7 +8623,7 @@ export const event_store = $root.event_store = (() => {
                 DeleteReq.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults)
                         object.options = null;
                     if (message.options != null && message.hasOwnProperty("options"))
@@ -8665,7 +8665,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Options(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -8711,7 +8711,7 @@ export const event_store = $root.event_store = (() => {
                     Options.prototype.streamExists = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * Options expectedStreamRevision.
@@ -8788,9 +8788,9 @@ export const event_store = $root.event_store = (() => {
                     Options.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteReq.Options();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteReq.Options();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.streamIdentifier = $root.event_store.client.shared.StreamIdentifier.decode(reader, reader.uint32());
@@ -8842,9 +8842,9 @@ export const event_store = $root.event_store = (() => {
                     Options.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                            let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                            var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                             if (error)
                                 return "streamIdentifier." + error;
                         }
@@ -8858,7 +8858,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noStream);
                                 if (error)
                                     return "noStream." + error;
                             }
@@ -8868,7 +8868,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.any);
+                                var error = $root.event_store.client.shared.Empty.verify(message.any);
                                 if (error)
                                     return "any." + error;
                             }
@@ -8878,7 +8878,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.streamExists);
+                                var error = $root.event_store.client.shared.Empty.verify(message.streamExists);
                                 if (error)
                                     return "streamExists." + error;
                             }
@@ -8897,7 +8897,7 @@ export const event_store = $root.event_store = (() => {
                     Options.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.DeleteReq.Options)
                             return object;
-                        let message = new $root.event_store.client.streams.DeleteReq.Options();
+                        var message = new $root.event_store.client.streams.DeleteReq.Options();
                         if (object.streamIdentifier != null) {
                             if (typeof object.streamIdentifier !== "object")
                                 throw TypeError(".event_store.client.streams.DeleteReq.Options.streamIdentifier: object expected");
@@ -8942,7 +8942,7 @@ export const event_store = $root.event_store = (() => {
                     Options.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults)
                             object.streamIdentifier = null;
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier"))
@@ -9010,7 +9010,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function DeleteResp(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -9032,7 +9032,7 @@ export const event_store = $root.event_store = (() => {
                 DeleteResp.prototype.noPosition = null;
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * DeleteResp positionOption.
@@ -9103,9 +9103,9 @@ export const event_store = $root.event_store = (() => {
                 DeleteResp.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteResp();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteResp();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.position = $root.event_store.client.streams.DeleteResp.Position.decode(reader, reader.uint32());
@@ -9148,11 +9148,11 @@ export const event_store = $root.event_store = (() => {
                 DeleteResp.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.position != null && message.hasOwnProperty("position")) {
                         properties.positionOption = 1;
                         {
-                            let error = $root.event_store.client.streams.DeleteResp.Position.verify(message.position);
+                            var error = $root.event_store.client.streams.DeleteResp.Position.verify(message.position);
                             if (error)
                                 return "position." + error;
                         }
@@ -9162,7 +9162,7 @@ export const event_store = $root.event_store = (() => {
                             return "positionOption: multiple values";
                         properties.positionOption = 1;
                         {
-                            let error = $root.event_store.client.shared.Empty.verify(message.noPosition);
+                            var error = $root.event_store.client.shared.Empty.verify(message.noPosition);
                             if (error)
                                 return "noPosition." + error;
                         }
@@ -9181,7 +9181,7 @@ export const event_store = $root.event_store = (() => {
                 DeleteResp.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.DeleteResp)
                         return object;
-                    let message = new $root.event_store.client.streams.DeleteResp();
+                    var message = new $root.event_store.client.streams.DeleteResp();
                     if (object.position != null) {
                         if (typeof object.position !== "object")
                             throw TypeError(".event_store.client.streams.DeleteResp.position: object expected");
@@ -9207,7 +9207,7 @@ export const event_store = $root.event_store = (() => {
                 DeleteResp.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.position != null && message.hasOwnProperty("position")) {
                         object.position = $root.event_store.client.streams.DeleteResp.Position.toObject(message.position, options);
                         if (options.oneofs)
@@ -9252,7 +9252,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Position(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -9331,9 +9331,9 @@ export const event_store = $root.event_store = (() => {
                     Position.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteResp.Position();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.DeleteResp.Position();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.commitPosition = reader.uint64();
@@ -9396,7 +9396,7 @@ export const event_store = $root.event_store = (() => {
                     Position.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.DeleteResp.Position)
                             return object;
-                        let message = new $root.event_store.client.streams.DeleteResp.Position();
+                        var message = new $root.event_store.client.streams.DeleteResp.Position();
                         if (object.commitPosition != null)
                             if ($util.Long)
                                 (message.commitPosition = $util.Long.fromValue(object.commitPosition)).unsigned = true;
@@ -9430,15 +9430,15 @@ export const event_store = $root.event_store = (() => {
                     Position.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.commitPosition = options.longs === String ? "0" : 0;
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.preparePosition = options.longs === String ? "0" : 0;
@@ -9492,7 +9492,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function TombstoneReq(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -9561,9 +9561,9 @@ export const event_store = $root.event_store = (() => {
                 TombstoneReq.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneReq();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneReq();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.options = $root.event_store.client.streams.TombstoneReq.Options.decode(reader, reader.uint32());
@@ -9604,7 +9604,7 @@ export const event_store = $root.event_store = (() => {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
                     if (message.options != null && message.hasOwnProperty("options")) {
-                        let error = $root.event_store.client.streams.TombstoneReq.Options.verify(message.options);
+                        var error = $root.event_store.client.streams.TombstoneReq.Options.verify(message.options);
                         if (error)
                             return "options." + error;
                     }
@@ -9622,7 +9622,7 @@ export const event_store = $root.event_store = (() => {
                 TombstoneReq.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.TombstoneReq)
                         return object;
-                    let message = new $root.event_store.client.streams.TombstoneReq();
+                    var message = new $root.event_store.client.streams.TombstoneReq();
                     if (object.options != null) {
                         if (typeof object.options !== "object")
                             throw TypeError(".event_store.client.streams.TombstoneReq.options: object expected");
@@ -9643,7 +9643,7 @@ export const event_store = $root.event_store = (() => {
                 TombstoneReq.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (options.defaults)
                         object.options = null;
                     if (message.options != null && message.hasOwnProperty("options"))
@@ -9685,7 +9685,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Options(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -9731,7 +9731,7 @@ export const event_store = $root.event_store = (() => {
                     Options.prototype.streamExists = null;
 
                     // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
+                    var $oneOfFields;
 
                     /**
                      * Options expectedStreamRevision.
@@ -9808,9 +9808,9 @@ export const event_store = $root.event_store = (() => {
                     Options.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneReq.Options();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneReq.Options();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.streamIdentifier = $root.event_store.client.shared.StreamIdentifier.decode(reader, reader.uint32());
@@ -9862,9 +9862,9 @@ export const event_store = $root.event_store = (() => {
                     Options.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        let properties = {};
+                        var properties = {};
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier")) {
-                            let error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
+                            var error = $root.event_store.client.shared.StreamIdentifier.verify(message.streamIdentifier);
                             if (error)
                                 return "streamIdentifier." + error;
                         }
@@ -9878,7 +9878,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.noStream);
+                                var error = $root.event_store.client.shared.Empty.verify(message.noStream);
                                 if (error)
                                     return "noStream." + error;
                             }
@@ -9888,7 +9888,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.any);
+                                var error = $root.event_store.client.shared.Empty.verify(message.any);
                                 if (error)
                                     return "any." + error;
                             }
@@ -9898,7 +9898,7 @@ export const event_store = $root.event_store = (() => {
                                 return "expectedStreamRevision: multiple values";
                             properties.expectedStreamRevision = 1;
                             {
-                                let error = $root.event_store.client.shared.Empty.verify(message.streamExists);
+                                var error = $root.event_store.client.shared.Empty.verify(message.streamExists);
                                 if (error)
                                     return "streamExists." + error;
                             }
@@ -9917,7 +9917,7 @@ export const event_store = $root.event_store = (() => {
                     Options.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.TombstoneReq.Options)
                             return object;
-                        let message = new $root.event_store.client.streams.TombstoneReq.Options();
+                        var message = new $root.event_store.client.streams.TombstoneReq.Options();
                         if (object.streamIdentifier != null) {
                             if (typeof object.streamIdentifier !== "object")
                                 throw TypeError(".event_store.client.streams.TombstoneReq.Options.streamIdentifier: object expected");
@@ -9962,7 +9962,7 @@ export const event_store = $root.event_store = (() => {
                     Options.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults)
                             object.streamIdentifier = null;
                         if (message.streamIdentifier != null && message.hasOwnProperty("streamIdentifier"))
@@ -10030,7 +10030,7 @@ export const event_store = $root.event_store = (() => {
                  */
                 function TombstoneResp(properties) {
                     if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
@@ -10052,7 +10052,7 @@ export const event_store = $root.event_store = (() => {
                 TombstoneResp.prototype.noPosition = null;
 
                 // OneOf field names bound to virtual getters and setters
-                let $oneOfFields;
+                var $oneOfFields;
 
                 /**
                  * TombstoneResp positionOption.
@@ -10123,9 +10123,9 @@ export const event_store = $root.event_store = (() => {
                 TombstoneResp.decode = function decode(reader, length) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneResp();
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneResp();
                     while (reader.pos < end) {
-                        let tag = reader.uint32();
+                        var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
                             message.position = $root.event_store.client.streams.TombstoneResp.Position.decode(reader, reader.uint32());
@@ -10168,11 +10168,11 @@ export const event_store = $root.event_store = (() => {
                 TombstoneResp.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
-                    let properties = {};
+                    var properties = {};
                     if (message.position != null && message.hasOwnProperty("position")) {
                         properties.positionOption = 1;
                         {
-                            let error = $root.event_store.client.streams.TombstoneResp.Position.verify(message.position);
+                            var error = $root.event_store.client.streams.TombstoneResp.Position.verify(message.position);
                             if (error)
                                 return "position." + error;
                         }
@@ -10182,7 +10182,7 @@ export const event_store = $root.event_store = (() => {
                             return "positionOption: multiple values";
                         properties.positionOption = 1;
                         {
-                            let error = $root.event_store.client.shared.Empty.verify(message.noPosition);
+                            var error = $root.event_store.client.shared.Empty.verify(message.noPosition);
                             if (error)
                                 return "noPosition." + error;
                         }
@@ -10201,7 +10201,7 @@ export const event_store = $root.event_store = (() => {
                 TombstoneResp.fromObject = function fromObject(object) {
                     if (object instanceof $root.event_store.client.streams.TombstoneResp)
                         return object;
-                    let message = new $root.event_store.client.streams.TombstoneResp();
+                    var message = new $root.event_store.client.streams.TombstoneResp();
                     if (object.position != null) {
                         if (typeof object.position !== "object")
                             throw TypeError(".event_store.client.streams.TombstoneResp.position: object expected");
@@ -10227,7 +10227,7 @@ export const event_store = $root.event_store = (() => {
                 TombstoneResp.toObject = function toObject(message, options) {
                     if (!options)
                         options = {};
-                    let object = {};
+                    var object = {};
                     if (message.position != null && message.hasOwnProperty("position")) {
                         object.position = $root.event_store.client.streams.TombstoneResp.Position.toObject(message.position, options);
                         if (options.oneofs)
@@ -10272,7 +10272,7 @@ export const event_store = $root.event_store = (() => {
                      */
                     function Position(properties) {
                         if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
@@ -10351,9 +10351,9 @@ export const event_store = $root.event_store = (() => {
                     Position.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneResp.Position();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.event_store.client.streams.TombstoneResp.Position();
                         while (reader.pos < end) {
-                            let tag = reader.uint32();
+                            var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 message.commitPosition = reader.uint64();
@@ -10416,7 +10416,7 @@ export const event_store = $root.event_store = (() => {
                     Position.fromObject = function fromObject(object) {
                         if (object instanceof $root.event_store.client.streams.TombstoneResp.Position)
                             return object;
-                        let message = new $root.event_store.client.streams.TombstoneResp.Position();
+                        var message = new $root.event_store.client.streams.TombstoneResp.Position();
                         if (object.commitPosition != null)
                             if ($util.Long)
                                 (message.commitPosition = $util.Long.fromValue(object.commitPosition)).unsigned = true;
@@ -10450,15 +10450,15 @@ export const event_store = $root.event_store = (() => {
                     Position.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
-                        let object = {};
+                        var object = {};
                         if (options.defaults) {
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.commitPosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.commitPosition = options.longs === String ? "0" : 0;
                             if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
+                                var long = new $util.Long(0, 0, true);
                                 object.preparePosition = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.preparePosition = options.longs === String ? "0" : 0;

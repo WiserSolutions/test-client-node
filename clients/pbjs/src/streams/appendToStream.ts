@@ -50,14 +50,14 @@ Client.prototype.appendToStream = async function (
 ): Promise<AppendResult> {
   const events = Array.isArray(event) ? event : [event];
 
-  const header = streams.AppendReq.create({
+  const header: event_store.client.streams.IAppendReq = {
     options: {
       any: {},
       streamIdentifier: {
         streamName: Buffer.from(streamName),
       },
     },
-  });
+  };
 
   debug.command("appendToStream: %O", {
     streamName,
@@ -153,7 +153,7 @@ Client.prototype.appendToStream = async function (
     sink.write(header);
 
     for (const event of events) {
-      const entry = streams.AppendReq.create({
+      const entry: event_store.client.streams.IAppendReq = {
         proposedMessage: {
           id: shared.UUID.create({ string: event.id }),
           metadata: {
@@ -163,7 +163,7 @@ Client.prototype.appendToStream = async function (
           data: convertData(event),
           customMetadata: convertMetadata(event),
         },
-      });
+      };
 
       sink.write(entry);
     }

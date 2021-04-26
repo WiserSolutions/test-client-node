@@ -1,15 +1,16 @@
 {
-  "name": "pbjs",
+  "name": "@eventstore/db-client-pbjs",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "private": true,
   "scripts": {
     "build": "run-s generate build:*",
     "build:ts": "tsc",
+    "build:generated": "shx cp ./src/generated/protos* ./dist/generated/",
     "generate": "run-s generate:*",
     "generate:folder": "shx mkdir -p ./src/generated",
     "generate:protobuf": "run-s generate:protobuf:*",
-    "generate:protobuf:js": "pbjs ../../protos/*.proto --target static-module --out ./src/generated/protos.js --es6 --wrap commonjs",
+    "generate:protobuf:js": "pbjs ../../protos/*.proto --target static-module --out ./src/generated/protos.js --wrap commonjs",
     "generate:protobuf:ts": "pbts ./src/generated/protos.js --out ./src/generated/protos.d.ts",
     "clean": "run-s clean:*",
     "clean:generated": "shx rm -rf ./src/generated/protos*",
