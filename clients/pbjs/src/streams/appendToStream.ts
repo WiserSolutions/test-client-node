@@ -174,9 +174,7 @@ Client.prototype.appendToStream = async function (
 const convertData = (event: EventData): Uint8Array => {
   switch (event.contentType) {
     case "application/json": {
-      return Buffer.from(JSON.stringify(event.data), "utf8").toString(
-        "base64"
-      ) as any;
+      return Uint8Array.from(Buffer.from(JSON.stringify(event.data), "utf8"));
     }
     case "application/octet-stream": {
       return event.data;
@@ -191,7 +189,5 @@ const convertMetadata = (event: EventData): Uint8Array | undefined => {
     return event.metadata;
   }
 
-  return Buffer.from(JSON.stringify(event.metadata), "utf8").toString(
-    "base64"
-  ) as any;
+  return Uint8Array.from(Buffer.from(JSON.stringify(event.data), "utf8"));
 };

@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@eventstore/db-client-uint8@../clients/eventstore-db-client-v1.2.1.tgz":
+  version "1.2.1"
+  resolved "../clients/eventstore-db-client-v1.2.1.tgz#67a0cf8aeb069ae35523c5513d7ad4984854264e"
+  dependencies:
+    "@grpc/grpc-js" "^1.2.2"
+    "@types/debug" "^4.1.5"
+    "@types/google-protobuf" "^3.7.4"
+    "@types/node" "^12.12.47"
+    debug "^4.3.1"
+    google-protobuf "^3.14.0"
+    uuid "^8.3.2"
+
 "@eventstore/db-client@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@eventstore/db-client/-/db-client-1.2.0.tgz#deeea7debb55cce7fc8eaaf062ebf515fe54e226"
