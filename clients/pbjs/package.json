@@ -1,0 +1,33 @@
+{
+  "name": "pbjs",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "private": true,
+  "scripts": {
+    "build": "run-s generate build:*",
+    "build:ts": "tsc",
+    "generate": "run-s generate:*",
+    "generate:folder": "shx mkdir -p ./src/generated",
+    "generate:protobuf": "run-s generate:protobuf:*",
+    "generate:protobuf:js": "pbjs ../../protos/*.proto --target static-module --out ./src/generated/protos.js --es6 --wrap commonjs",
+    "generate:protobuf:ts": "pbts ./src/generated/protos.js --out ./src/generated/protos.d.ts",
+    "clean": "run-s clean:*",
+    "clean:generated": "shx rm -rf ./src/generated/protos*",
+    "clean:dist": "shx rm -rf ./dist"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.2.2",
+    "@types/debug": "^4.1.5",
+    "@types/node": "^12.12.47",
+    "@types/uuid": "^8.3.0",
+    "debug": "^4.3.1",
+    "protobufjs": "^6.10.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "shx": "^0.3.3",
+    "typescript": "^4.1.3"
+  }
+}
