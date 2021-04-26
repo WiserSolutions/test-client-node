@@ -1,0 +1,289 @@
+Statistical profiling result from isolate-0x454a5e0-37766-v8.log, (145 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+    116   80.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+
+ [C++]:
+   ticks  total  nonlib   name
+      6    4.1%   20.7%  epoll_pwait
+      5    3.4%   17.2%  __GI___libc_write
+      4    2.8%   13.8%  __pthread_mutex_unlock_usercnt
+      4    2.8%   13.8%  __lll_lock_wait
+      3    2.1%   10.3%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      1    0.7%    3.4%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    0.7%    3.4%  _int_malloc
+      1    0.7%    3.4%  _int_free
+      1    0.7%    3.4%  __pthread_cond_signal
+      1    0.7%    3.4%  __memcpy_avx_unaligned_erms
+      1    0.7%    3.4%  __futex_abstimed_wait_common64
+      1    0.7%    3.4%  __GI__IO_file_xsputn
+
+ [Summary]:
+   ticks  total  nonlib   name
+      0    0.0%    0.0%  JavaScript
+     29   20.0%  100.0%  C++
+     17   11.7%   58.6%  GC
+    116   80.0%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+      2   28.6%    1.4%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      1   14.3%    0.7%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1   14.3%    0.7%  _int_malloc
+      1   14.3%    0.7%  _int_free
+      1   14.3%    0.7%  __memcpy_avx_unaligned_erms
+      1   14.3%    0.7%  __GI___libc_write
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+    116   80.0%  /home/george/.nvm/versions/node/v14.15.4/bin/node
+     89   76.7%    /home/george/.nvm/versions/node/v14.15.4/bin/node
+     35   39.3%      LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+     31   88.6%        LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      5   16.1%          Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      2    6.5%          LazyCompile: ~setupPrepareStackTrace internal/bootstrap/node.js:252:32
+      2  100.0%            Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      2    6.5%          LazyCompile: ~createGlobalConsole internal/bootstrap/node.js:317:29
+      2  100.0%            Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      2    6.5%          Eval: ~<anonymous> stream.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      2    6.5%          Eval: ~<anonymous> internal/source_map/source_map_cache.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      2    6.5%          Eval: ~<anonymous> internal/modules/esm/loader.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      2    6.5%          Eval: ~<anonymous> fs.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      2    6.5%          Eval: ~<anonymous> events.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          LazyCompile: ~setupBuffer internal/bootstrap/node.js:300:21
+      1  100.0%            Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      1    3.2%          LazyCompile: ~initializeCJSLoader internal/bootstrap/pre_execution.js:407:29
+      1  100.0%            LazyCompile: ~prepareMainThreadExecution internal/bootstrap/pre_execution.js:19:36
+      1    3.2%          Eval: ~<anonymous> tty.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> perf_hooks.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/worker.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/url.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/timers.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/process/esm_loader.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/modules/esm/get_source.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/modules/cjs/helpers.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/crypto/keygen.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1    3.2%          Eval: ~<anonymous> internal/bootstrap/pre_execution.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      4   11.4%        LazyCompile: ~compileForPublicLoader internal/bootstrap/loaders.js:219:25
+      4  100.0%          LazyCompile: ~loadNativeModule internal/modules/cjs/helpers.js:31:26
+      4  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:704:24
+      7    7.9%      LazyCompile: ~wrapSafe internal/modules/cjs/loader.js:964:18
+      7  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+      7  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+      7  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:916:33
+      7    7.9%      /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2   28.6%        LazyCompile: ~maxWidth /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1034:22
+      2  100.0%          LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:956:36
+      2  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1   14.3%        LazyCompile: ~set internal/url.js:619:8
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~pathToFileURL internal/url.js:1388:23
+      1   14.3%        LazyCompile: ~help /home/george/dev/test-client/node_modules/yargs/build/index.cjs:796:30
+      1  100.0%          LazyCompile: ~self.cacheHelpMessage /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1071:38
+      1  100.0%            LazyCompile: ~runCommand /home/george/dev/test-client/node_modules/yargs/build/index.cjs:389:42
+      1   14.3%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:802:57
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:801:35
+      1   14.3%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/cliui/build/index.cjs:95:37
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~rowToString /home/george/dev/test-client/node_modules/cliui/build/index.cjs:94:16
+      1   14.3%        Eval: ~<anonymous> internal/net.js:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%            LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      4    4.5%      LazyCompile: ~module.exports /home/george/dev/test-client/node_modules/emoji-regex/index.js:3:27
+      4  100.0%        LazyCompile: ~stringWidth /home/george/dev/test-client/node_modules/string-width/index.js:6:21
+      4  100.0%          LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1039:23
+      4  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2    2.2%      LazyCompile: ~internalBinding internal/bootstrap/loaders.js:137:45
+      1   50.0%        Eval: ~<anonymous> internal/util.js:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%            LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      1   50.0%        Eval: ~<anonymous> crypto.js:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%            LazyCompile: ~compileForPublicLoader internal/bootstrap/loaders.js:219:25
+      2    2.2%      LazyCompile: ~formatRaw internal/util/inspect.js:807:19
+      2  100.0%        LazyCompile: ~formatValue internal/util/inspect.js:738:21
+      2  100.0%          LazyCompile: ~inspect internal/util/inspect.js:284:17
+      2  100.0%            LazyCompile: ~formatWithOptionsInternal internal/util/inspect.js:1893:35
+      2    2.2%      LazyCompile: ~cpus os.js:101:14
+      1   50.0%        Eval: ~<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+      1   50.0%        Eval: ~<anonymous> /home/george/dev/test-client/test-runner/bin/commands/rdfl/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+      1    1.1%      LazyCompile: ~yargsParser.detailed /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:1025:33
+      1  100.0%        LazyCompile: ~parseArgs /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2654:41
+      1  100.0%          LazyCompile: ~get /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2651:14
+      1  100.0%            Eval: ~<anonymous> /home/george/dev/test-client/test-runner/bin/index.js:1:1
+      1    1.1%      LazyCompile: ~value internal/console/constructor.js:300:20
+      1  100.0%        LazyCompile: ~value internal/console/constructor.js:321:20
+      1  100.0%          LazyCompile: ~log internal/console/constructor.js:357:6
+      1  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1    1.1%      LazyCompile: ~uvException internal/errors.js:402:21
+      1  100.0%        LazyCompile: ~handleErrorFromBinding internal/fs/utils.js:303:32
+      1  100.0%          LazyCompile: ~statSync fs.js:1081:18
+      1  100.0%            LazyCompile: ~exists /home/george/dev/test-client/node_modules/y18n/build/index.cjs:189:13
+      1    1.1%      LazyCompile: ~stringWidth /home/george/dev/test-client/node_modules/string-width/index.js:6:21
+      1  100.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1039:23
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~maxWidth /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1034:22
+      1    1.1%      LazyCompile: ~shift internal/priority_queue.js:118:8
+      1  100.0%        LazyCompile: ~listOnTimeout internal/timers.js:502:25
+      1  100.0%          LazyCompile: ~processTimers internal/timers.js:482:25
+      1    1.1%      LazyCompile: ~setTimeout timers.js:133:20
+      1  100.0%        LazyCompile: ~handler /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:44:23
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1    1.1%      LazyCompile: ~setKey /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:742:24
+      1  100.0%        LazyCompile: ~setArg /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:523:24
+      1  100.0%          LazyCompile: ~parse /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:100:10
+      1  100.0%            LazyCompile: ~yargsParser.detailed /home/george/dev/test-client/node_modules/yargs-parser/build/index.cjs:1025:33
+      1    1.1%      LazyCompile: ~self.cacheHelpMessage /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1071:38
+      1  100.0%        LazyCompile: ~runCommand /home/george/dev/test-client/node_modules/yargs/build/index.cjs:389:42
+      1  100.0%          LazyCompile: ~parseArgs /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2654:41
+      1  100.0%            LazyCompile: ~get /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2651:14
+      1    1.1%      LazyCompile: ~resolveMainPath internal/modules/run_main.js:8:25
+      1  100.0%        LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:65:31
+      1  100.0%          Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1    1.1%      LazyCompile: ~readSync fs.js:555:18
+      1  100.0%        LazyCompile: ~tryReadSync fs.js:362:21
+      1  100.0%          LazyCompile: ~readFileSync fs.js:374:22
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+      1    1.1%      LazyCompile: ~readPackageScope internal/modules/cjs/loader.js:271:26
+      1  100.0%        LazyCompile: ~shouldUseESMLoader internal/modules/run_main.js:23:28
+      1  100.0%          LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:65:31
+      1  100.0%            Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1    1.1%      LazyCompile: ~option /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2287:49
+      1  100.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:420:57
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~runCommand /home/george/dev/test-client/node_modules/yargs/build/index.cjs:389:42
+      1    1.1%      LazyCompile: ~onwrite internal/streams/writable.js:394:17
+      1  100.0%        LazyCompile: ~afterWriteDispatched internal/stream_base_commons.js:151:30
+      1  100.0%          LazyCompile: ~writeGeneric internal/stream_base_commons.js:143:22
+      1  100.0%            LazyCompile: ~Socket._writeGeneric net.js:759:42
+      1    1.1%      LazyCompile: ~observersCallback perf_hooks.js:513:27
+      1  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%          LazyCompile: ~measure perf_hooks.js:402:10
+      1  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:118:16
+      1    1.1%      LazyCompile: ~module.exports /home/george/dev/test-client/node_modules/wrap-ansi/index.js:209:18
+      1  100.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/cliui/build/index.cjs:165:21
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~rasterize /home/george/dev/test-client/node_modules/cliui/build/index.cjs:159:14
+      1    1.1%      LazyCompile: ~module.exports /home/george/dev/test-client/node_modules/strip-ansi/index.js:4:18
+      1  100.0%        LazyCompile: ~measurePadding /home/george/dev/test-client/node_modules/cliui/build/index.cjs:77:19
+      1  100.0%          LazyCompile: ~colFromString /home/george/dev/test-client/node_modules/cliui/build/index.cjs:71:18
+      1  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/cliui/build/index.cjs:32:31
+      1    1.1%      LazyCompile: ~maxWidth /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1034:22
+      1  100.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:956:36
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:954:33
+      1    1.1%      LazyCompile: ~listOnTimeout internal/timers.js:502:25
+      1  100.0%        LazyCompile: ~processTimers internal/timers.js:482:25
+      1    1.1%      LazyCompile: ~handler /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:44:23
+      1  100.0%        LazyCompile: ~runCommand /home/george/dev/test-client/node_modules/yargs/build/index.cjs:389:42
+      1  100.0%          LazyCompile: ~parseArgs /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2654:41
+      1  100.0%            LazyCompile: ~get /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2651:14
+      1    1.1%      LazyCompile: ~getColorDepth internal/tty.js:102:23
+      1  100.0%        LazyCompile: ~value internal/console/constructor.js:300:20
+      1  100.0%          LazyCompile: ~value internal/console/constructor.js:321:20
+      1  100.0%            LazyCompile: ~log internal/console/constructor.js:357:6
+      1    1.1%      LazyCompile: ~createWritableStdioStream internal/bootstrap/switches/is_main_thread.js:41:35
+      1  100.0%        LazyCompile: ~getStdout internal/bootstrap/switches/is_main_thread.js:120:19
+      1  100.0%          Eval: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+      1    1.1%      LazyCompile: ~createPool buffer.js:158:20
+      1  100.0%        Eval: ~<anonymous> buffer.js:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%            LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      1    1.1%      LazyCompile: ~assertEncoding internal/fs/utils.js:122:24
+      1  100.0%        LazyCompile: ~getOptions internal/fs/utils.js:284:20
+      1  100.0%          LazyCompile: ~realpathSync fs.js:1650:22
+      1  100.0%            LazyCompile: ~toRealPath internal/modules/cjs/loader.js:343:20
+      1    1.1%      LazyCompile: ~_addListener events.js:343:22
+      1  100.0%        LazyCompile: ~addListener events.js:405:58
+      1  100.0%          Eval: ~<anonymous> internal/bootstrap/switches/is_main_thread.js:1:1
+      1    1.1%      LazyCompile: ~Yargs.self.command /home/george/dev/test-client/node_modules/yargs/build/index.cjs:2082:29
+      1  100.0%        Eval: ~<anonymous> /home/george/dev/test-client/test-runner/bin/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+      1    1.1%      LazyCompile: ~Worker internal/worker.js:91:14
+      1  100.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:121:24
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: ~spawnWorker /home/george/dev/test-client/test-runner/bin/commands/wrfl/index.js:120:21
+      1    1.1%      LazyCompile: ~URL internal/url.js:327:14
+      1  100.0%        LazyCompile: ~pathToFileURL internal/url.js:1388:23
+      1  100.0%          LazyCompile: ~resolveExports internal/modules/cjs/loader.js:422:24
+      1  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:444:28
+      1    1.1%      LazyCompile: ~Module.load internal/modules/cjs/loader.js:916:33
+      1  100.0%        LazyCompile: ~Module._load internal/modules/cjs/loader.js:704:24
+      1  100.0%          LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:65:31
+      1  100.0%            Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1    1.1%      Eval: ~<anonymous> internal/validators.js:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      1  100.0%            Eval: ~<anonymous> buffer.js:1:1
+      1    1.1%      Eval: ~<anonymous> internal/crypto/cipher.js:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      1  100.0%            Eval: ~<anonymous> crypto.js:1:1
+      2    1.7%    LazyCompile: ~stringWidth /home/george/dev/test-client/node_modules/string-width/index.js:6:21
+      2  100.0%      LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1039:23
+      2  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2  100.0%          LazyCompile: ~maxWidth /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1034:22
+      2  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/yargs/build/index.cjs:956:36
+      2    1.7%    LazyCompile: ~normalizeString path.js:52:25
+      2  100.0%      LazyCompile: ~resolve path.js:973:10
+      1   50.0%        LazyCompile: ~patchProcessObject internal/bootstrap/pre_execution.js:80:28
+      1  100.0%          LazyCompile: ~prepareMainThreadExecution internal/bootstrap/pre_execution.js:19:36
+      1  100.0%            Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1   50.0%        LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:444:28
+      1  100.0%          LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:796:35
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:704:24
+
+      6    4.1%  epoll_pwait
+
+      5    3.4%  __GI___libc_write
+      1   20.0%    /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%      /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%        LazyCompile: ~resetOptions /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1787:59
+      1  100.0%          LazyCompile: ~Yargs /home/george/dev/test-client/node_modules/yargs/build/index.cjs:1723:15
+      1  100.0%            LazyCompile: ~Argv /home/george/dev/test-client/node_modules/yargs/index.cjs:11:14
+
+      4    2.8%  __pthread_mutex_unlock_usercnt
+
+      4    2.8%  __lll_lock_wait
+
+      3    2.1%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      2   66.7%    /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1   50.0%      LazyCompile: ~_getMaxListeners events.js:208:26
+      1  100.0%        LazyCompile: ~_addListener events.js:343:22
+      1  100.0%          LazyCompile: ~addListener events.js:405:58
+      1  100.0%            LazyCompile: ~getStderr internal/bootstrap/switches/is_main_thread.js:132:19
+      1   50.0%      Eval: ~<anonymous> internal/process/esm_loader.js:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:270:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:303:29
+      1  100.0%            Eval: ~<anonymous> internal/modules/cjs/loader.js:1:1
+

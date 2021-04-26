@@ -1,0 +1,449 @@
+Statistical profiling result from isolate-0x7fdf7c000de0-37690-v8.log, (10646 ticks, 9 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   4340   40.8%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      7    0.1%          [vdso]
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+     27    0.3%    0.4%  LazyCompile: *nextTick internal/process/task_queues.js:101:18
+     22    0.2%    0.3%  LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     22    0.2%    0.3%  LazyCompile: *makeClientStreamRequest /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:185:28
+     21    0.2%    0.3%  LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+     18    0.2%    0.3%  LazyCompile: *write /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/stream-decoder.js:36:10
+     17    0.2%    0.3%  LazyCompile: *onwrite internal/streams/writable.js:394:17
+     17    0.2%    0.3%  LazyCompile: *onSessionHeaders internal/http2/core.js:303:26
+     15    0.1%    0.2%  LazyCompile: *receiveMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:31:20
+     15    0.1%    0.2%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:307:35
+     14    0.1%    0.2%  LazyCompile: *writeOrBuffer internal/streams/writable.js:334:23
+     14    0.1%    0.2%  LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+     14    0.1%    0.2%  LazyCompile: *request internal/http2/core.js:1606:10
+     14    0.1%    0.2%  LazyCompile: *onWriteComplete internal/stream_base_commons.js:82:25
+     13    0.1%    0.2%  LazyCompile: *handleTrailers /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:257:19
+     13    0.1%    0.2%  LazyCompile: *Readable.read internal/streams/readable.js:390:35
+     12    0.1%    0.2%  LazyCompile: *destroy internal/streams/destroy.js:5:17
+     12    0.1%    0.2%  LazyCompile: *_addListener events.js:343:22
+     11    0.1%    0.2%  RegExp: ^[0-9a-z_.-]+$
+     11    0.1%    0.2%  LazyCompile: *emit events.js:264:44
+     11    0.1%    0.2%  LazyCompile: *attachHttp2Stream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:291:22
+     10    0.1%    0.2%  LazyCompile: *finishMaybe internal/streams/writable.js:635:21
+     10    0.1%    0.2%  LazyCompile: *Writable internal/streams/writable.js:218:18
+      9    0.1%    0.1%  LazyCompile: *sendMessage /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:38:16
+      9    0.1%    0.1%  LazyCompile: *mapToHeaders internal/http2/util.js:457:22
+      9    0.1%    0.1%  LazyCompile: *Readable.resume internal/streams/readable.js:944:37
+      9    0.1%    0.1%  LazyCompile: *<anonymous> internal/http2/core.js:1964:18
+      8    0.1%    0.1%  LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+      8    0.1%    0.1%  LazyCompile: *sendMessage /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/compression-filter.js:170:22
+      8    0.1%    0.1%  LazyCompile: *readableAddChunk internal/streams/readable.js:231:26
+      8    0.1%    0.1%  LazyCompile: *encode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:6818:61
+      8    0.1%    0.1%  LazyCompile: *createFilter /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:65:17
+      8    0.1%    0.1%  LazyCompile: *<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:131:47
+      8    0.1%    0.1%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:584:70
+      7    0.1%    0.1%  LazyCompile: *toString /home/george/dev/test-client/node_modules/long/src/long.js:470:43
+      7    0.1%    0.1%  LazyCompile: *callFinal internal/streams/writable.js:609:19
+      7    0.1%    0.1%  LazyCompile: *_copy buffer.js:208:15
+      6    0.1%    0.1%  RegExp: ^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$
+      6    0.1%    0.1%  LazyCompile: *writeMessage /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/compression-filter.js:56:23
+      6    0.1%    0.1%  LazyCompile: *trace /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:153:10
+      6    0.1%    0.1%  LazyCompile: *start /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:268:10
+      6    0.1%    0.1%  LazyCompile: *push /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:189:9
+      6    0.1%    0.1%  LazyCompile: *getBottomInterceptingCall /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:349:35
+      6    0.1%    0.1%  LazyCompile: *fromHttp2Headers /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:204:28
+      6    0.1%    0.1%  LazyCompile: *encode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:6495:53
+      6    0.1%    0.1%  LazyCompile: *encode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:6226:51
+      6    0.1%    0.1%  LazyCompile: *divide /home/george/dev/test-client/node_modules/long/src/long.js:925:39
+      6    0.1%    0.1%  LazyCompile: *decode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:7676:53
+      5    0.0%    0.1%  LazyCompile: *writeStringBuffer /home/george/dev/test-client/node_modules/protobufjs/src/writer_buffer.js:57:27
+      5    0.0%    0.1%  LazyCompile: *tryPick /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:143:12
+      5    0.0%    0.1%  LazyCompile: *toHeaderObject internal/http2/util.js:555:24
+      5    0.0%    0.1%  LazyCompile: *serialize_event_store_client_streams_AppendReq /home/george/dev/test-client/clients/pbjs/dist/generated/streams.js:6:56
+      5    0.0%    0.1%  LazyCompile: *sendMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-credentials-filter.js:44:23
+      5    0.0%    0.1%  LazyCompile: *receiveMessage /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:45:19
+      5    0.0%    0.1%  LazyCompile: *onReceiveStatus /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:235:28
+      5    0.0%    0.1%  LazyCompile: *get internal/bootstrap/pre_execution.js:312:8
+      5    0.0%    0.1%  LazyCompile: *fromString buffer.js:444:20
+      5    0.0%    0.1%  LazyCompile: *fromBits /home/george/dev/test-client/node_modules/long/src/long.js:189:18
+      5    0.0%    0.1%  LazyCompile: *finish /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:448:42
+      5    0.0%    0.1%  LazyCompile: *endReadable internal/streams/readable.js:1310:21
+      5    0.0%    0.1%  LazyCompile: *closeStream internal/http2/core.js:1754:21
+      5    0.0%    0.1%  LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+      4    0.0%    0.1%  RegExp: ^[ -~]*$
+      4    0.0%    0.1%  LazyCompile: *write_uint32 /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:207:48
+      4    0.0%    0.1%  LazyCompile: *writeVarint32 /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:176:23
+      4    0.0%    0.1%  LazyCompile: *validate /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:39:18
+      4    0.0%    0.1%  LazyCompile: *toString buffer.js:776:46
+      4    0.0%    0.1%  LazyCompile: *sendMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:24:17
+      4    0.0%    0.1%  LazyCompile: *read_uint64 /home/george/dev/test-client/node_modules/protobufjs/src/reader.js:394:37
+      4    0.0%    0.1%  LazyCompile: *processPromiseRejections internal/process/promises.js:190:34
+      4    0.0%    0.1%  LazyCompile: *onStreamRead internal/stream_base_commons.js:165:22
+      4    0.0%    0.1%  LazyCompile: *getMessage internal/errors.js:346:20
+      4    0.0%    0.1%  LazyCompile: *formatWithOptionsInternal internal/util/inspect.js:1893:35
+      4    0.0%    0.1%  LazyCompile: *encode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:1038:46
+      4    0.0%    0.1%  LazyCompile: *doWrite internal/streams/writable.js:367:17
+      4    0.0%    0.1%  LazyCompile: *adjustOffset buffer.js:1090:22
+      4    0.0%    0.1%  LazyCompile: *_getMaxListeners events.js:208:26
+      4    0.0%    0.1%  LazyCompile: *Writable.write internal/streams/writable.js:258:36
+      4    0.0%    0.1%  LazyCompile: *Client.getGRPCClient /home/george/dev/test-client/clients/pbjs/dist/Client/index.js:36:30
+      4    0.0%    0.1%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:383:34
+      3    0.0%    0.0%  LazyCompile: *write_bytes_buffer /home/george/dev/test-client/node_modules/protobufjs/src/writer_buffer.js:47:59
+      3    0.0%    0.0%  LazyCompile: *streamListenerAdded internal/http2/core.js:454:29
+      3    0.0%    0.0%  LazyCompile: *prepareStackTrace internal/errors.js:59:27
+      3    0.0%    0.0%  LazyCompile: *from buffer.js:306:28
+      3    0.0%    0.0%  LazyCompile: *equals /home/george/dev/test-client/node_modules/long/src/long.js:605:39
+      3    0.0%    0.0%  LazyCompile: *emit internal/http2/core.js:294:14
+      3    0.0%    0.0%  LazyCompile: *Stream internal/streams/legacy.js:9:16
+      3    0.0%    0.0%  LazyCompile: *ReadableState internal/streams/readable.js:90:23
+      3    0.0%    0.0%  LazyCompile: *Readable.on internal/streams/readable.js:857:33
+      3    0.0%    0.0%  LazyCompile: *<anonymous> internal/streams/destroy.js:39:30
+      3    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:206:38
+      3    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:367:31
+      3    0.0%    0.0%  Function: *div_u
+      2    0.0%    0.0%  Stub: js-to-wasm::i
+      2    0.0%    0.0%  LazyCompile: *writeBytesBuffer_set /home/george/dev/test-client/node_modules/protobufjs/src/writer_buffer.js:30:40
+      2    0.0%    0.0%  LazyCompile: *validateNumber internal/validators.js:127:24
+      2    0.0%    0.0%  LazyCompile: *slice buffer.js:1107:40
+      2    0.0%    0.0%  LazyCompile: *sessionName internal/http2/util.js:603:21
+      2    0.0%    0.0%  LazyCompile: *sendMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/compression-filter.js:152:23
+      2    0.0%    0.0%  LazyCompile: *resume_ internal/streams/readable.js:965:17
+      2    0.0%    0.0%  LazyCompile: *refTrace /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:35:18
+      2    0.0%    0.0%  LazyCompile: *read_uint32 /home/george/dev/test-client/node_modules/protobufjs/src/reader.js:88:32
+      2    0.0%    0.0%  LazyCompile: *onStreamClose internal/http2/core.js:495:23
+      2    0.0%    0.0%  LazyCompile: *onReceiveMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:225:32
+      2    0.0%    0.0%  LazyCompile: *noop internal/util/debuglog.js:45:14
+      2    0.0%    0.0%  LazyCompile: *getNewCallNumber /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:48:26
+      2    0.0%    0.0%  LazyCompile: *fromArrayLike buffer.js:492:23
+      2    0.0%    0.0%  LazyCompile: *fork /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:403:38
+      2    0.0%    0.0%  LazyCompile: *endReadableNT internal/streams/readable.js:1320:23
+      2    0.0%    0.0%  LazyCompile: *destroyHttp2Stream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:490:23
+      2    0.0%    0.0%  LazyCompile: *decode /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:7163:52
+      2    0.0%    0.0%  LazyCompile: *debugSessionObj internal/http2/core.js:179:25
+      2    0.0%    0.0%  LazyCompile: *clearBuffer internal/streams/writable.js:493:21
+      2    0.0%    0.0%  LazyCompile: *Http2Stream internal/http2/core.js:1803:14
+      2    0.0%    0.0%  LazyCompile: *<anonymous> internal/http2/core.js:721:55
+      2    0.0%    0.0%  LazyCompile: *<anonymous> internal/http2/core.js:2207:18
+      2    0.0%    0.0%  LazyCompile: *<anonymous> internal/http2/core.js:1842:17
+      2    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/make-client.js:103:21
+      1    0.0%    0.0%  Stub: js-to-wasm:iiii:i
+      1    0.0%    0.0%  RegExp: \s+
+      1    0.0%    0.0%  LazyCompile: *write_string_buffer /home/george/dev/test-client/node_modules/protobufjs/src/writer_buffer.js:69:61
+      1    0.0%    0.0%  LazyCompile: *utf8_write /home/george/dev/test-client/node_modules/@protobufjs/utf8/index.js:80:33
+      1    0.0%    0.0%  LazyCompile: *trace /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/logging.js:56:15
+      1    0.0%    0.0%  LazyCompile: *stringify /home/george/dev/test-client/node_modules/uuid/dist/stringify.js:22:19
+      1    0.0%    0.0%  LazyCompile: *streamOnPause internal/http2/core.js:1699:23
+      1    0.0%    0.0%  LazyCompile: *set /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:79:8
+      1    0.0%    0.0%  LazyCompile: *sendMetadata /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/deadline-filter.js:67:23
+      1    0.0%    0.0%  LazyCompile: *sendMessageWithContext /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:575:27
+      1    0.0%    0.0%  LazyCompile: *resetBuffer internal/streams/writable.js:180:21
+      1    0.0%    0.0%  LazyCompile: *reset /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:414:40
+      1    0.0%    0.0%  LazyCompile: *receiveMessage /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/max-message-size-filter.js:53:25
+      1    0.0%    0.0%  LazyCompile: *readLongVarint /home/george/dev/test-client/node_modules/protobufjs/src/reader.js:123:24
+      1    0.0%    0.0%  LazyCompile: *pushAsyncContext internal/async_hooks.js:501:26
+      1    0.0%    0.0%  LazyCompile: *multiply /home/george/dev/test-client/node_modules/long/src/long.js:840:43
+      1    0.0%    0.0%  LazyCompile: *maybeReadMore_ internal/streams/readable.js:600:24
+      1    0.0%    0.0%  LazyCompile: *listenerCount events.js:582:23
+      1    0.0%    0.0%  LazyCompile: *ldelim /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:431:42
+      1    0.0%    0.0%  LazyCompile: *handleFilteredRead /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:209:23
+      1    0.0%    0.0%  LazyCompile: *get internal/streams/duplex.js:92:8
+      1    0.0%    0.0%  LazyCompile: *get internal/bootstrap/pre_execution.js:300:8
+      1    0.0%    0.0%  LazyCompile: *get closed internal/http2/core.js:2113:13
+      1    0.0%    0.0%  LazyCompile: *get /home/george/dev/test-client/node_modules/debug/src/common.js:123:9
+      1    0.0%    0.0%  LazyCompile: *format internal/util/inspect.js:1881:16
+      1    0.0%    0.0%  LazyCompile: *errorBuffer internal/streams/writable.js:477:21
+      1    0.0%    0.0%  LazyCompile: *encode internal/encoding.js:332:9
+      1    0.0%    0.0%  LazyCompile: *done internal/http2/core.js:1996:18
+      1    0.0%    0.0%  LazyCompile: *createPool buffer.js:158:20
+      1    0.0%    0.0%  LazyCompile: *checkBounds internal/buffer.js:49:21
+      1    0.0%    0.0%  LazyCompile: *byteLength buffer.js:722:20
+      1    0.0%    0.0%  LazyCompile: *add /home/george/dev/test-client/node_modules/long/src/long.js:785:33
+      1    0.0%    0.0%  LazyCompile: *UUID /home/george/dev/test-client/clients/pbjs/dist/generated/protos.js:980:30
+      1    0.0%    0.0%  LazyCompile: *StreamDecoder /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/stream-decoder.js:27:16
+      1    0.0%    0.0%  LazyCompile: *State /home/george/dev/test-client/node_modules/protobufjs/src/writer.js:59:15
+      1    0.0%    0.0%  LazyCompile: *Readable.push internal/streams/readable.js:222:35
+      1    0.0%    0.0%  LazyCompile: *Client.callArguments /home/george/dev/test-client/clients/pbjs/dist/Client/index.js:92:30
+      1    0.0%    0.0%  LazyCompile: *<anonymous> internal/http2/util.js:536:40
+      1    0.0%    0.0%  LazyCompile: *<anonymous> internal/http2/core.js:1957:21
+      1    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:181:35
+      1    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/metadata.js:128:35
+      1    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:379:32
+      1    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:375:30
+      1    0.0%    0.0%  LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:193:26
+
+ [C++]:
+   ticks  total  nonlib   name
+   4876   45.8%   77.4%  epoll_wait
+    103    1.0%    1.6%  _int_malloc
+     88    0.8%    1.4%  __libc_write
+     84    0.8%    1.3%  __GI___libc_malloc
+     76    0.7%    1.2%  __memcpy_avx_unaligned_erms
+     29    0.3%    0.5%  unlink_chunk.constprop.0
+     28    0.3%    0.4%  _int_free
+     23    0.2%    0.4%  malloc_consolidate
+     23    0.2%    0.4%  cfree@GLIBC_2.2.5
+     19    0.2%    0.3%  __libc_read
+     17    0.2%    0.3%  __memset_avx2_unaligned_erms
+     11    0.1%    0.2%  __GI___mprotect
+     10    0.1%    0.2%  __clock_gettime
+      8    0.1%    0.1%  epoll_ctl
+      8    0.1%    0.1%  __strlen_avx2
+      8    0.1%    0.1%  __strcmp_avx2
+      7    0.1%    0.1%  __GI___pthread_mutex_lock
+      7    0.1%    0.1%  __GI___pthread_getspecific
+      6    0.1%    0.1%  sysmalloc
+      6    0.1%    0.1%  operator new(unsigned long)
+      6    0.1%    0.1%  __futex_abstimed_wait_common64
+      5    0.0%    0.1%  __GI___libc_write
+      5    0.0%    0.1%  __GI___libc_realloc
+      4    0.0%    0.1%  __pthread_mutex_unlock_usercnt
+      4    0.0%    0.1%  __memchr_avx2
+      4    0.0%    0.1%  __lll_lock_wait_private
+      3    0.0%    0.0%  operator new[](unsigned long, std::nothrow_t const&)
+      3    0.0%    0.0%  operator delete(void*)
+      3    0.0%    0.0%  __memcmp_avx2_movbe
+      3    0.0%    0.0%  __lll_lock_wait
+      2    0.0%    0.0%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      2    0.0%    0.0%  std::__detail::_Prime_rehash_policy::_M_need_rehash(unsigned long, unsigned long, unsigned long) const
+      2    0.0%    0.0%  fwrite
+      2    0.0%    0.0%  __pthread_cond_signal
+      2    0.0%    0.0%  __mpn_mul_1
+      2    0.0%    0.0%  __errno_location
+      2    0.0%    0.0%  __GI___munmap
+      1    0.0%    0.0%  std::ostream::sentry::sentry(std::ostream&)
+      1    0.0%    0.0%  std::locale::id::_M_id() const
+      1    0.0%    0.0%  std::ios_base::ios_base()
+      1    0.0%    0.0%  std::basic_ios<char, std::char_traits<char> >::rdbuf(std::basic_streambuf<char, std::char_traits<char> >*)
+      1    0.0%    0.0%  operator delete[](void*)
+      1    0.0%    0.0%  alloc_perturb
+      1    0.0%    0.0%  __pthread_enable_asynccancel
+      1    0.0%    0.0%  __mpn_divrem
+      1    0.0%    0.0%  __dynamic_cast
+      1    0.0%    0.0%  __GI___printf_fp_l
+      1    0.0%    0.0%  __GI___mmap
+      1    0.0%    0.0%  __GI__IO_file_xsputn
+
+ [Summary]:
+   ticks  total  nonlib   name
+    787    7.4%   12.5%  JavaScript
+   5503   51.7%   87.4%  C++
+    363    3.4%    5.8%  GC
+   4347   40.8%          Shared libraries
+      9    0.1%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+     59   21.3%    0.6%  __GI___libc_malloc
+     49   17.7%    0.5%  __memcpy_avx_unaligned_erms
+     38   13.7%    0.4%  _int_malloc
+     15    5.4%    0.1%  unlink_chunk.constprop.0
+     15    5.4%    0.1%  __memset_avx2_unaligned_erms
+      8    2.9%    0.1%  _int_free
+      8    2.9%    0.1%  __strlen_avx2
+      8    2.9%    0.1%  __strcmp_avx2
+      7    2.5%    0.1%  __clock_gettime
+      7    2.5%    0.1%  __GI___pthread_mutex_lock
+      6    2.2%    0.1%  cfree@GLIBC_2.2.5
+      5    1.8%    0.0%  sysmalloc
+      5    1.8%    0.0%  operator new(unsigned long)
+      5    1.8%    0.0%  __GI___mprotect
+      5    1.8%    0.0%  __GI___libc_write
+      4    1.4%    0.0%  malloc_consolidate
+      4    1.4%    0.0%  __memchr_avx2
+      4    1.4%    0.0%  __libc_write
+      3    1.1%    0.0%  operator new[](unsigned long, std::nothrow_t const&)
+      3    1.1%    0.0%  __pthread_mutex_unlock_usercnt
+      3    1.1%    0.0%  __GI___pthread_getspecific
+      2    0.7%    0.0%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      2    0.7%    0.0%  fwrite
+      2    0.7%    0.0%  __lll_lock_wait_private
+      1    0.4%    0.0%  std::ostream::sentry::sentry(std::ostream&)
+      1    0.4%    0.0%  std::locale::id::_M_id() const
+      1    0.4%    0.0%  std::ios_base::ios_base()
+      1    0.4%    0.0%  std::basic_ios<char, std::char_traits<char> >::rdbuf(std::basic_streambuf<char, std::char_traits<char> >*)
+      1    0.4%    0.0%  std::__detail::_Prime_rehash_policy::_M_need_rehash(unsigned long, unsigned long, unsigned long) const
+      1    0.4%    0.0%  operator delete[](void*)
+      1    0.4%    0.0%  operator delete(void*)
+      1    0.4%    0.0%  __memcmp_avx2_movbe
+      1    0.4%    0.0%  __GI___libc_realloc
+      1    0.4%    0.0%  __GI__IO_file_xsputn
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   4876   45.8%  epoll_wait
+
+   4340   40.8%  /home/george/.nvm/versions/node/v14.15.4/bin/node
+   1599   36.8%    /home/george/.nvm/versions/node/v14.15.4/bin/node
+    530   33.1%      /home/george/.nvm/versions/node/v14.15.4/bin/node
+    279   52.6%        LazyCompile: *prepareStackTrace internal/errors.js:59:27
+    279  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+    279  100.0%            LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+     81   15.3%        LazyCompile: ~prepareStackTrace internal/errors.js:59:27
+     81  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     43   53.1%            LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+     38   46.9%            LazyCompile: ~addCodeToName internal/errors.js:303:23
+     26    4.9%        LazyCompile: *mapToHeaders internal/http2/util.js:457:22
+     25   96.2%          LazyCompile: *request internal/http2/core.js:1606:10
+     25  100.0%            LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+      1    3.8%          LazyCompile: ~request internal/http2/core.js:1606:10
+      1  100.0%            LazyCompile: ~startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+     24    4.5%        LazyCompile: *<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:131:12
+     24  100.0%          LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+     24  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+     20    3.8%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     18    3.4%        LazyCompile: *handleTrailers /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:257:19
+     18  100.0%          LazyCompile: *emit events.js:264:44
+     18  100.0%            LazyCompile: *emit internal/http2/core.js:294:14
+     15    2.8%        LazyCompile: *createFilter /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:65:17
+     15  100.0%          LazyCompile: *getBottomInterceptingCall /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:349:35
+     15  100.0%            LazyCompile: *makeClientStreamRequest /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:185:28
+     15    2.8%        LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:307:35
+     15  100.0%          LazyCompile: *emit events.js:264:44
+     15  100.0%            LazyCompile: *emit internal/http2/core.js:294:14
+     10    1.9%        LazyCompile: *request internal/http2/core.js:1606:10
+     10  100.0%          LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+     10  100.0%            LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+      9    1.7%        LazyCompile: *splitHostPort /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/uri-parser.js:40:23
+      9  100.0%          LazyCompile: *createFilter /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/filter-stack.js:65:17
+      9  100.0%            LazyCompile: *getBottomInterceptingCall /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:349:35
+    177   11.1%      LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+    177  100.0%        LazyCompile: *finishMaybe internal/streams/writable.js:635:21
+    174   98.3%          LazyCompile: *callFinal internal/streams/writable.js:609:19
+    174  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      3    1.7%          LazyCompile: *<anonymous> internal/streams/writable.js:610:17
+      3  100.0%            LazyCompile: ~_final /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call.js:91:11
+    113    7.1%      LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     87    5.4%      LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+     77   88.5%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     77  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     77  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      8    9.2%        LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+      8  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      8  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2    2.3%        LazyCompile: ~runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+      2  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+     48    3.0%      LazyCompile: *onReceiveStatus /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:235:28
+     31   64.6%        LazyCompile: *onReceiveStatus /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:331:30
+     31  100.0%          LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:143:30
+     31  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     17   35.4%        LazyCompile: ~onReceiveStatus /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:331:30
+     17  100.0%          LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:143:30
+     17  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     36    2.3%      LazyCompile: ~wrapSafe internal/modules/cjs/loader.js:964:18
+     36  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1017:37
+     36  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1072:37
+     36  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:916:33
+     32    2.0%      LazyCompile: *toHeaderObject internal/http2/util.js:555:24
+     32  100.0%        LazyCompile: *onSessionHeaders internal/http2/core.js:303:26
+     28    1.8%      LazyCompile: *prepareStackTrace internal/errors.js:59:27
+     28  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     28  100.0%          LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+     28  100.0%            LazyCompile: *finishMaybe internal/streams/writable.js:635:21
+     18    1.1%      LazyCompile: ~slice buffer.js:657:12
+     12   66.7%        LazyCompile: *toString buffer.js:776:46
+     12  100.0%          LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+     12  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      6   33.3%        LazyCompile: ~toString buffer.js:776:46
+      3   50.0%          LazyCompile: ~convertMetadata /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:115:25
+      3  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:26:24
+      3   50.0%          LazyCompile: ~convertData /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:105:21
+      3  100.0%            LazyCompile: ~<anonymous> /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:26:24
+     18    1.1%      LazyCompile: *<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:131:12
+     18  100.0%        LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+     18  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     18  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+     16    1.0%      LazyCompile: *write /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/stream-decoder.js:36:10
+     13   81.3%        LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:367:31
+     13  100.0%          LazyCompile: *emit events.js:264:44
+     13  100.0%            LazyCompile: *readableAddChunk internal/streams/readable.js:231:26
+      3   18.8%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:367:31
+      3  100.0%          LazyCompile: *emit events.js:264:44
+      2   66.7%            LazyCompile: *readableAddChunk internal/streams/readable.js:231:26
+      1   33.3%            LazyCompile: ~addChunk internal/streams/readable.js:299:18
+     16    1.0%      LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+      8   50.0%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+      8  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      4   50.0%            LazyCompile: ~processTicksAndRejections internal/process/task_queues.js:65:35
+      4   50.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      8   50.0%        LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+      8  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      8  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     16    1.0%      LazyCompile: *getBottomInterceptingCall /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:349:35
+     16  100.0%        LazyCompile: *makeClientStreamRequest /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/client.js:185:28
+     15   93.8%          LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/make-client.js:103:21
+     15  100.0%            LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+      1    6.3%          LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/make-client.js:103:21
+      1  100.0%            LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+     16    1.0%      LazyCompile: *<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:131:47
+     16  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     16  100.0%          LazyCompile: *<anonymous> /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:131:12
+     16  100.0%            LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+     91    2.1%    LazyCompile: *request internal/http2/core.js:1606:10
+     91  100.0%      LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+     78   85.7%        LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+     78  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     78  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     13   14.3%        LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+     13  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      8   61.5%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      5   38.5%            LazyCompile: ~processTicksAndRejections internal/process/task_queues.js:65:35
+     66    1.5%    LazyCompile: *Writable.destroy internal/streams/writable.js:771:38
+     66  100.0%      LazyCompile: *finishMaybe internal/streams/writable.js:635:21
+     66  100.0%        LazyCompile: *callFinal internal/streams/writable.js:609:19
+     66  100.0%          LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     61    1.4%    LazyCompile: *emit events.js:264:44
+     33   54.1%      LazyCompile: *emit internal/http2/core.js:294:14
+     33  100.0%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     10   16.4%      LazyCompile: ~emit internal/http2/core.js:294:14
+     10  100.0%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      9   14.8%      LazyCompile: *readableAddChunk internal/streams/readable.js:231:26
+      8   88.9%        LazyCompile: *onStreamRead internal/stream_base_commons.js:165:22
+      1   11.1%        LazyCompile: *Readable.push internal/streams/readable.js:222:35
+      1  100.0%          LazyCompile: ~onStreamRead internal/stream_base_commons.js:165:22
+      4    6.6%      LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      3    4.9%      LazyCompile: *callFinal internal/streams/writable.js:609:19
+      3  100.0%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      1    1.6%      LazyCompile: ~endReadableNT internal/streams/readable.js:1320:23
+      1  100.0%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      1    1.6%      LazyCompile: ~Readable.pause internal/streams/readable.js:978:36
+      1  100.0%        LazyCompile: ~handleFilteredRead /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:209:23
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     59    1.4%    LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:375:30
+     59  100.0%      LazyCompile: *endReadableNT internal/streams/readable.js:1320:23
+     59  100.0%        LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     49    1.1%    LazyCompile: *<anonymous> internal/http2/core.js:1964:18
+     49  100.0%      LazyCompile: *writeOrBuffer internal/streams/writable.js:334:23
+     41   83.7%        LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:584:70
+     40   97.6%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     40  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      6   12.2%        LazyCompile: *Writable.write internal/streams/writable.js:258:36
+      6  100.0%          LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:584:70
+      5   83.3%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+      2    4.1%        LazyCompile: ~Writable.write internal/streams/writable.js:258:36
+      2  100.0%          LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/call-stream.js:584:70
+      2  100.0%            /home/george/.nvm/versions/node/v14.15.4/bin/node
+     45    1.0%    LazyCompile: *startCallStream /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/subchannel.js:514:20
+     32   71.1%      LazyCompile: *<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+     32  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     32  100.0%          LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     13   28.9%      LazyCompile: ~<anonymous> /home/george/dev/test-client/node_modules/@grpc/grpc-js/build/src/channel.js:175:31
+     13  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     12   92.3%          LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      1    7.7%          LazyCompile: ~processTicksAndRejections internal/process/task_queues.js:65:35
+     45    1.0%    LazyCompile: *Client_1.Client.appendToStream /home/george/dev/test-client/clients/pbjs/dist/streams/appendToStream.js:9:59
+     33   73.3%      /home/george/.nvm/versions/node/v14.15.4/bin/node
+     33  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     33  100.0%          LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+     11   24.4%      LazyCompile: *runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+     11  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+     11  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+     11  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+      1    2.2%      LazyCompile: ~runClient /home/george/dev/test-client/test-runner/bin/commands/wrfl/wrfl.worker.js:74:25
+      1  100.0%        /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%          /home/george/.nvm/versions/node/v14.15.4/bin/node
+      1  100.0%            LazyCompile: *processTicksAndRejections internal/process/task_queues.js:65:35
+

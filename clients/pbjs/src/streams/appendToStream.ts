@@ -1,5 +1,4 @@
 import { Client as GRPCClient } from "@grpc/grpc-js";
-import { TextEncoder } from "util";
 
 import { Client } from "../Client";
 import { ANY } from "../constants";
@@ -72,7 +71,7 @@ Client.prototype.appendToStream = async function (
     const sink = client.makeClientStreamRequest(
       "/event_store.client.streams.Streams/Append",
       (message: event_store.client.streams.IAppendReq) =>
-        Buffer.from(streams.AppendReq.encode(message).finish()),
+        streams.AppendReq.encode(message).finish() as any,
       (buffer: Buffer) => streams.AppendResp.decode(buffer),
       ...this.callArguments(baseOptions),
       (error, resp) => {
@@ -175,9 +174,9 @@ Client.prototype.appendToStream = async function (
 const convertData = (event: EventData): Uint8Array => {
   switch (event.contentType) {
     case "application/json": {
-      return new TextEncoder().encode(
-        Buffer.from(JSON.stringify(event.data), "utf8").toString("base64")
-      );
+      return Buffer.from(JSON.stringify(event.data), "utf8").toString(
+        "base64"
+      ) as any;
     }
     case "application/octet-stream": {
       return event.data;
@@ -192,7 +191,7 @@ const convertMetadata = (event: EventData): Uint8Array | undefined => {
     return event.metadata;
   }
 
-  return new TextEncoder().encode(
-    Buffer.from(JSON.stringify(event.metadata), "utf8").toString("base64")
-  );
+  return Buffer.from(JSON.stringify(event.metadata), "utf8").toString(
+    "base64"
+  ) as any;
 };

@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node ./bin/index.js",
     "build": "tsc",
-    "dev": "tsc && node ./bin/index.js --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\""
+    "dev": "tsc && node ./bin/index.js --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\"",
+    "profile": "tsc && node --prof ./bin/index.js --connection-string \"esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstore.cloud:2113\""
   },
   "dependencies": {
     "@eventstore/db-client": "1.2.0",
