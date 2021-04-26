@@ -17,6 +17,6 @@ yargs(hideBin(process.argv))
   .option("client", {
     type: "string",
     description: "which client to use",
-    demandOption: true,
     choices: ["gpb", "pbjs"],
+    default: "gpb",
   }).argv;
