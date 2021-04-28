@@ -1,11 +1,10 @@
-import { performance, PerformanceObserver } from "perf_hooks";
 import { Worker } from "worker_threads";
 import { cpus } from "os";
 
 import type { CommandModule } from "yargs";
 import type { ReadPosition } from "@eventstore/db-client";
 
-import { Init, ResponseMsg, WToPMsg } from "./types";
+import { Init, PerformanceMsg, ResponseMsg, WToPMsg } from "./types";
 
 interface Options {
   connectionString: string;
@@ -76,35 +75,6 @@ async function handler({
     })
   );
 
-  let success = 0;
-  let failure = 0;
-  const failures = new Map<string, number>();
-
-  const perfObserver = new PerformanceObserver((items) => {
-    items.getEntries().forEach(({ duration }) => {
-      const eventsSent = success + failure;
-
-      console.log(
-        `DONE TOTAL ${eventsSent} READS IN ${duration}ms (${
-          (1000.0 * eventsSent) / duration
-        }/s)`
-      );
-      console.log(`SUCCESS: ${success} FAILURE: ${failure}`);
-
-      if (failures.size) {
-        console.log(
-          `failures: \n${Array.from(failures)
-            .map(([error, count]) => `${`${count}x`.padEnd(12, " ")}| ${error}`)
-            .join("\n")}`
-        );
-      }
-    });
-  });
-
-  perfObserver.observe({ entryTypes: ["measure"], buffered: true });
-
-  performance.mark("subscribe-to-all-start");
-
   const promises = await Promise.allSettled(
     workerCounts.map(({ clientCount, eventsPerClient }, i) =>
       spawnWorker({
@@ -119,12 +89,17 @@ async function handler({
     )
   );
 
-  performance.mark("subscribe-to-all-end");
+  let success = 0;
+  let failure = 0;
+  const failures = new Map<string, number>();
+  const allPerfs: PerformanceMsg[] = [];
 
   for (const result of promises) {
     if (result.status === "fulfilled") {
       success += result.value.success;
       failure += result.value.failure;
+
+      allPerfs.push(...result.value.perfs);
 
       for (const [error, count] of result.value.failures) {
         const fail = error.toString();
@@ -135,19 +110,41 @@ async function handler({
     }
   }
 
-  // lazy way to get this last
-  setTimeout(
-    () =>
-      performance.measure(
-        "subscribe-to-all",
-        "subscribe-to-all-start",
-        "subscribe-to-all-end"
-      ),
-    500
+  let startTime;
+  let endTime;
+
+  for (const perf of allPerfs) {
+    console.log("-".repeat(40));
+    console.log(perf.message);
+
+    startTime = Math.min(perf.startTime, startTime ?? Infinity);
+    endTime = Math.max(perf.endTime, endTime ?? -Infinity);
+  }
+
+  console.log("-".repeat(40));
+
+  const duration = startTime && endTime ? endTime - startTime : 0;
+  const eventsSent = success + failure;
+
+  console.log(
+    `DONE TOTAL ${eventsSent} READS IN ${Math.round(duration)}ms (${Math.round(
+      (1000.0 * eventsSent) / duration
+    )}/s)`
   );
+  console.log(`SUCCESS: ${success} FAILURE: ${failure}`);
+
+  if (failures.size) {
+    console.log(
+      `failures: \n${Array.from(failures)
+        .map(([error, count]) => `${`${count}x`.padEnd(12, " ")}| ${error}`)
+        .join("\n")}`
+    );
+  }
 }
 
-function spawnWorker(options: Init): Promise<ResponseMsg> {
+function spawnWorker(
+  options: Init
+): Promise<ResponseMsg & { perfs: PerformanceMsg[] }> {
   return new Promise((resolve, reject) => {
     console.log(
       `spawning worker ${options.id} with ${options.clientCount} clients`,
@@ -157,22 +154,29 @@ function spawnWorker(options: Init): Promise<ResponseMsg> {
       workerData: options,
       stdout: true,
     });
+
+    const perfs: PerformanceMsg[] = [];
+    let result: ResponseMsg;
+
     worker.on("message", (msg: WToPMsg) => {
       switch (msg.type) {
         case "finished": {
-          resolve(msg);
+          result = msg;
           break;
         }
         case "perf": {
-          console.log(msg.message);
+          perfs.push(msg);
           break;
         }
       }
     });
     worker.on("error", reject);
     worker.on("exit", (code) => {
-      if (code !== 0)
+      if (code !== 0) {
         reject(new Error(`Worker stopped with exit code ${code}`));
+      } else {
+        resolve({ ...result, perfs });
+      }
     });
     worker.stdout.pipe(process.stdout);
   });

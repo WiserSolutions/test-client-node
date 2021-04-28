@@ -20,6 +20,8 @@ export interface ResponseMsg {
 export interface PerformanceMsg {
   type: "perf";
   message: string;
+  startTime: number;
+  endTime: number;
 }
 
 export type WToPMsg = ResponseMsg | PerformanceMsg;

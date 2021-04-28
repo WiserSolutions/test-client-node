@@ -1,7 +1,7 @@
 import { parentPort, workerData } from "worker_threads";
 import { performance, PerformanceObserver } from "perf_hooks";
 import { EventStoreDBClient, ReadPosition } from "@eventstore/db-client";
-import { Init, ResponseMsg } from "./types";
+import { Init, PerformanceMsg, ResponseMsg } from "./types";
 
 async function initialize({
   connectionString,
@@ -32,10 +32,9 @@ async function initialize({
         name.startsWith(`${client} all events`)
       )!;
 
-      parentPort!.postMessage({
+      const message: PerformanceMsg = {
         type: "perf",
         message: [
-          "-".repeat(40),
           `Worker ${id} Client ${client + 1}:`,
           ...clientEntries,
           `Total: ${eventsPerClient} in ${Math.round(
@@ -43,15 +42,18 @@ async function initialize({
           )}ms (~${Math.round(
             (eventsPerClient * 1000) / clientTotal.duration
           )}/s)}`,
-          "-".repeat(40),
         ].join("\n"),
-      });
+        startTime: clientTotal.startTime,
+        endTime: clientTotal.startTime + clientTotal.duration,
+      };
+
+      parentPort!.postMessage(message);
     }
+
     process.exit();
   });
-  perfObserver.observe({ entryTypes: ["measure"], buffered: true });
 
-  performance.mark("reads-start");
+  perfObserver.observe({ entryTypes: ["measure"], buffered: true });
 
   const results = await Promise.allSettled(
     Array.from({ length: clientCount }, (_, i) =>
@@ -65,8 +67,6 @@ async function initialize({
       })
     )
   );
-
-  performance.mark("reads-end");
 
   let success = 0;
   let failure = 0;
@@ -115,8 +115,6 @@ async function initialize({
   };
 
   parentPort!.postMessage(finalResult);
-
-  performance.measure(`worker ${id} totals: `, "reads-start", "reads-end");
 }
 
 interface ClientResult {
