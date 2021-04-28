@@ -128,11 +128,6 @@ async function runClient({
     done = r;
   });
 
-  let landed!: () => void;
-  const letNextEventThrough = () => {
-    landed();
-  };
-
   let success = 0;
   let failure = 0;
   let total = 0;
@@ -157,7 +152,6 @@ async function runClient({
       const fail = error.toString();
       failures.set(fail, (failures.get(fail) ?? 0) + 1);
 
-      letNextEventThrough();
       done();
     });
 
