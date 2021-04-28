@@ -95,9 +95,11 @@ yarn start safl --connection-string "esdb://c0e0d3arh41g7drr2ilg.mesdb.eventstor
 
 #### Options:
 
-|                                  | description                                       | type    | required | default       |
-| -------------------------------- | ------------------------------------------------- | ------- | -------- | ------------- |
-| --client_count                   | Number of clients to use                          | number  | yes      |               |
-| --worker_count                   | Number of workers to use                          | number  |          | cpu count - 1 |
-| --total_events_to_read           | Total number of events to read from subscription  | number  |          | 1000          |
-| --report_per_number_of_events    | Report progress per number of events              | number  |          | 1000          |
+|                               | description                                      | type                 | required | default       |
+| ----------------------------- | ------------------------------------------------ | -------------------- | -------- | ------------- |
+| --client_count                | Number of clients to use                         | number               | yes      |               |
+| --worker_count                | Number of workers to use                         | number               |          | cpu count - 1 |
+| --total_events_to_read        | Total number of events to read from subscription | number               |          | 1000          |
+| --report_per_number_of_events | Report progress per number of events             | number               |          | 1000          |
+| --from_position               | Start of subscription                            | `'start'` or `'end'` |          | `'start'`     |
+| --resolve_link_tos            | Resolve link tos                                 | boolean              |          | false         |

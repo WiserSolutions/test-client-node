@@ -1,43 +1,52 @@
 import { parentPort, workerData } from "worker_threads";
 import { performance, PerformanceObserver } from "perf_hooks";
-import { EventStoreDBClient } from "@eventstore/db-client";
-import { Init, PToWMsg, ResponseMsg } from "./types";
-import { ResolvedEvent } from "@eventstore/db-client";
-
-const onStreamName: Array<(name: string) => void> = [];
-
-parentPort!.on("message", (msg: PToWMsg) => {
-  switch (msg.type) {
-    case "requestStream": {
-      const next = onStreamName.shift();
-      next?.(msg.streamName);
-      break;
-    }
-    default:
-      break;
-  }
-});
+import { EventStoreDBClient, ReadPosition } from "@eventstore/db-client";
+import { Init, ResponseMsg } from "./types";
 
 async function initialize({
   connectionString,
   clientCount,
   id,
-  totalEventsToRead,
+  eventsPerClient,
   reportPerNumberOfEvents,
+  fromPosition,
+  resolveLinkTos,
 }: Init) {
   const perfObserver = new PerformanceObserver((items) => {
-    items.getEntries().forEach(({ name, duration }) => {
-      const eventsSent = name.startsWith("worker")
-        ? clientCount * totalEventsToRead
-        : totalEventsToRead;
+    const allEntries = items.getEntries();
+
+    for (let client = 0; client < clientCount; client++) {
+      const clientEntries = allEntries
+        .filter(({ name }) => name.startsWith(`${client} events`))
+        .sort()
+        .map(
+          ({ name, duration }) =>
+            `${name.replace(`${client} events`, "")} : ${Math.round(
+              duration
+            )}ms (~${Math.round(
+              (reportPerNumberOfEvents * 1000) / duration
+            )}/s)`
+        );
+
+      const clientTotal = allEntries.find(({ name }) =>
+        name.startsWith(`${client} all events`)
+      )!;
+
       parentPort!.postMessage({
         type: "perf",
-        message: `${name.toUpperCase()} ${eventsSent} READS FROM SUBSCRIPTION IN ${duration}ms (${
-          (1000.0 * eventsSent) / duration
-        }/s)`,
+        message: [
+          "-".repeat(40),
+          `Worker ${id} Client ${client + 1}:`,
+          ...clientEntries,
+          `Total: ${eventsPerClient} in ${Math.round(
+            clientTotal.duration
+          )}ms (~${Math.round(
+            (eventsPerClient * 1000) / clientTotal.duration
+          )}/s)}`,
+          "-".repeat(40),
+        ].join("\n"),
       });
-    });
-
+    }
     process.exit();
   });
   perfObserver.observe({ entryTypes: ["measure"], buffered: true });
@@ -49,8 +58,10 @@ async function initialize({
       runClient({
         id: `${i}`,
         connectionString,
-        totalEventsToRead,
+        eventsPerClient,
         reportPerNumberOfEvents,
+        fromPosition,
+        resolveLinkTos,
       })
     )
   );
@@ -64,35 +75,42 @@ async function initialize({
 
   for (const result of results) {
     if (result.status === "fulfilled") {
-      const {
-        id: clientId,
-        success: s,
-        failure: f,
-        failures: fs,
-      } = result.value;
-      success += s;
-      failure += f;
+      const { id: clientId, markers } = result.value;
+      success += 1;
 
-      for (const [fail, count] of fs) {
-        failures.set(fail, (failures.get(fail) ?? 0) + count);
-      }
+      const padLength = `${markers.length * reportPerNumberOfEvents}`.length;
 
-      if (clientCount > 1) {
+      markers.forEach(([start, end], i) => {
         performance.measure(
-          `       client ${clientId}: `,
-          `${clientId}-reads-start`,
-          `${clientId}-reads-end`
+          `${clientId} events ${`${i * reportPerNumberOfEvents}`.padStart(
+            padLength,
+            " "
+          )} to ${`${(i + 1) * reportPerNumberOfEvents}`.padEnd(
+            padLength,
+            " "
+          )}`,
+          start,
+          end
         );
-      }
+      });
+
+      performance.measure(
+        `${clientId} all events`,
+        `${clientId}-start`,
+        `${clientId}-end`
+      );
     } else {
-      console.log("critical failure");
+      failure += 1;
+
+      const fail = result.reason.toString();
+      failures.set(fail, (failures.get(fail) ?? 0) + 1);
     }
   }
 
   const finalResult: ResponseMsg = {
     type: "finished",
-    success,
-    failure,
+    success: success * eventsPerClient,
+    failure: failure * eventsPerClient,
     failures: Array.from(failures),
   };
 
@@ -103,63 +121,58 @@ async function initialize({
 
 interface ClientResult {
   id: string;
-  success: number;
-  failure: number;
-  failures: Map<string, number>;
+  markers: [string, string][];
+  total: number;
 }
 
 interface RunClientOptions {
   id: string;
   connectionString: string;
-  totalEventsToRead: number;
+  eventsPerClient: number;
   reportPerNumberOfEvents: number;
+  fromPosition: ReadPosition;
+  resolveLinkTos: boolean;
 }
 
 async function runClient({
   id,
   connectionString,
-  totalEventsToRead,
+  eventsPerClient,
   reportPerNumberOfEvents,
+  fromPosition,
+  resolveLinkTos,
 }: RunClientOptions): Promise<ClientResult> {
   const client = EventStoreDBClient.connectionString(connectionString);
 
-  let done!: () => void;
-  const waitForAll = new Promise<void>((r) => {
-    done = r;
-  });
-
-  let success = 0;
-  let failure = 0;
   let total = 0;
-  const failures = new Map<string, number>();
+  let marker = 0;
+  const markers: [string, string][] = [];
 
-  performance.mark(`${id}-subscribe-to-all-start`);
+  for await (const _ of client.subscribeToAll({
+    fromPosition,
+    resolveLinkTos,
+  })) {
+    if (total >= eventsPerClient) {
+      break;
+    }
 
-  const subscription = client
-    .subscribeToAll()
-    .on("data", function (_resolvedEvent: ResolvedEvent) {
-      success++;
-      total++;
+    if (total === 0) {
+      performance.mark(`${id}-start`);
+    }
 
-      if (total === totalEventsToRead) {
-        subscription.destroy();
-        done();
-      }
-    })
-    .on("error", (error) => {
-      failure++;
-      total++;
-      const fail = error.toString();
-      failures.set(fail, (failures.get(fail) ?? 0) + 1);
+    if (++total % reportPerNumberOfEvents === 0) {
+      performance.mark(`${id}-${marker}`);
+      markers.push([
+        `${id}-${marker === 0 ? "start" : marker - 1}`,
+        `${id}-${marker}`,
+      ]);
+      marker++;
+    }
+  }
 
-      done();
-    });
+  performance.mark(`${id}-end`);
 
-  await waitForAll;
-
-  performance.mark(`${id}-subscribe-to-all-end`);
-
-  return { id, success, failure, failures };
+  return { id, markers, total };
 }
 
 initialize(workerData);

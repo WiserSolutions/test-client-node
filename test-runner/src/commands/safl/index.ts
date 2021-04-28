@@ -1,8 +1,9 @@
-import type { CommandModule } from "yargs";
-
 import { performance, PerformanceObserver } from "perf_hooks";
 import { Worker } from "worker_threads";
 import { cpus } from "os";
+
+import type { CommandModule } from "yargs";
+import type { ReadPosition } from "@eventstore/db-client";
 
 import { Init, ResponseMsg, WToPMsg } from "./types";
 
@@ -12,6 +13,8 @@ interface Options {
   worker_count: number;
   total_events_to_read: number;
   report_per_number_of_events: number;
+  from_position: ReadPosition;
+  resolve_link_tos: boolean;
 }
 
 const safl: CommandModule<{}, Options> = {
@@ -34,6 +37,13 @@ const safl: CommandModule<{}, Options> = {
       type: "number",
       default: 1000,
     },
+    from_position: {
+      default: "start",
+    },
+    resolve_link_tos: {
+      type: "boolean",
+      default: false,
+    },
   },
   handler,
 };
@@ -44,6 +54,8 @@ async function handler({
   total_events_to_read: totalEventsToRead,
   report_per_number_of_events: reportPerNumberOfEvents,
   connectionString,
+  from_position: fromPosition,
+  resolve_link_tos: resolveLinkTos,
 }: Options) {
   const workerCount = Math.min(clientCount, worker_count);
 
@@ -59,6 +71,7 @@ async function handler({
 
   const workerCounts = splitInteger(clientCount, workerCount).map(
     (clientsForWorker) => ({
+      eventsPerClient: Math.ceil(totalEventsToRead / clientCount),
       clientCount: clientsForWorker,
     })
   );
@@ -93,13 +106,15 @@ async function handler({
   performance.mark("subscribe-to-all-start");
 
   const promises = await Promise.allSettled(
-    workerCounts.map(({ clientCount }, i) =>
+    workerCounts.map(({ clientCount, eventsPerClient }, i) =>
       spawnWorker({
         id: `${i}`,
         clientCount,
         connectionString,
-        totalEventsToRead,
+        eventsPerClient,
         reportPerNumberOfEvents,
+        fromPosition,
+        resolveLinkTos,
       })
     )
   );

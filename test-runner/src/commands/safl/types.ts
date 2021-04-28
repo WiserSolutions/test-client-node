@@ -1,9 +1,13 @@
+import type { ReadPosition } from "@eventstore/db-client";
+
 export interface Init {
   id: string;
   clientCount: number;
   connectionString: string;
-  totalEventsToRead: number;
+  eventsPerClient: number;
   reportPerNumberOfEvents: number;
+  fromPosition: ReadPosition;
+  resolveLinkTos: boolean;
 }
 
 export interface ResponseMsg {
@@ -18,14 +22,4 @@ export interface PerformanceMsg {
   message: string;
 }
 
-export interface RequestStreamMsg {
-  type: "requestStream";
-}
-
-export interface StreamMsg {
-  type: "requestStream";
-  streamName: string;
-}
-
-export type PToWMsg = StreamMsg;
-export type WToPMsg = ResponseMsg | RequestStreamMsg | PerformanceMsg;
+export type WToPMsg = ResponseMsg | PerformanceMsg;
