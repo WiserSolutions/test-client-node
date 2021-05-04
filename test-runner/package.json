@@ -17,7 +17,8 @@
     "@eventstore/db-client-uint8": "../clients/eventstore-db-client-v1.2.1.tgz",
     "@eventstore/db-client-pbjs": "1.0.0",
     "uuid": "^8.3.2",
-    "yargs": "^16.2.0"
+    "yargs": "^16.2.0",
+    "newrelic": "^7.3.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
