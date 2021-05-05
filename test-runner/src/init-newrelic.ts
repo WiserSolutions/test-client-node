@@ -4,6 +4,7 @@
  * More info @doc http://newrelic.github.io/node-newrelic/docs/tutorial-Datastore-Simple.html
  */
  function instrumentEventStoreWithNewRelic(shim: any, eventstore: any) {
+    console.log('EventStore Shim Instrumented')
     shim.setDatastore('EventStore')
     const proto = eventstore.EventStoreDBClient.prototype
     shim.recordOperation(proto, ['appendToStream', 'deleteStream', 'readStream', 'readAll'], {
