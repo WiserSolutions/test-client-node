@@ -4,7 +4,7 @@ import type { CommandModule } from "yargs";
 import { performance, PerformanceObserver } from "perf_hooks";
 import { Worker } from "worker_threads";
 import { cpus } from "os";
-// import { randomBytes } from "crypto";
+import { randomBytes } from "crypto";
 
 import { Init, ResponseMsg, StreamMsg, WToPMsg } from "./types";
 import { Clients } from "../../utils/client";
@@ -78,8 +78,8 @@ async function handler({
   );
 
   const data =
-    "<ea{dr>fDO\x1Bt\x07u@g\x1Ce.V]3G\x1A\x01(h7oVOS\x18bNVuAp7\f\x10xp:cM\x16d\x12?\x7F'\x0F)O0A2$D9\tPVkFHY?_\"c\x17[\x11`\x17XVLP@SVZR2o\x13\x1E+!LL.H\x03`\x04jAW\x14d\"\r3\x14vG\x16b%bi>'j\x12yI0\tS(D6?DH:Wc&[\x19\x0B\b\x00Zo\x12,bv\x11X>VQ\x02&htwwzv\x16Br \x193X\x01C\x1D!G S[@~1%Y\x16pN!\x1Cxzx\x16P\x10!hM\x10v2h2<UfgBlj?l#h\x11A16YiG\x7F^\\\x07KKv\x1Dp\x15C\x12yc\fc_\\\x11B _(\r\x00m\x16H}\x1DR\x10'mm1`(w\b";
-  // randomBytes(size).toString("ascii");
+    // "<ea{dr>fDO\x1Bt\x07u@g\x1Ce.V]3G\x1A\x01(h7oVOS\x18bNVuAp7\f\x10xp:cM\x16d\x12?\x7F'\x0F)O0A2$D9\tPVkFHY?_\"c\x17[\x11`\x17XVLP@SVZR2o\x13\x1E+!LL.H\x03`\x04jAW\x14d\"\r3\x14vG\x16b%bi>'j\x12yI0\tS(D6?DH:Wc&[\x19\x0B\b\x00Zo\x12,bv\x11X>VQ\x02&htwwzv\x16Br \x193X\x01C\x1D!G S[@~1%Y\x16pN!\x1Cxzx\x16P\x10!hM\x10v2h2<UfgBlj?l#h\x11A16YiG\x7F^\\\x07KKv\x1Dp\x15C\x12yc\fc_\\\x11B _(\r\x00m\x16H}\x1DR\x10'mm1`(w\b";
+  randomBytes(size).toString("ascii");
   const metadata =
     "<ea{dr>fDO\x1Bt\x07u@g\x1Ce.V]3G\x1A\x01(h7oVOS\x18bNVuAp7\f\x10xp:cM\x16d\x12?\x7F'\x0F)O0A2$D9\tPVkFHY?_\"c\x17[\x11`\x17XVLP@SVZR2o\x13\x1E+!LL.H\x03`\x04jAW\x14d\"\r3\x14vG\x16b%bi>'j\x12yI0\tS(D6?DH:Wc&[\x19\x0B\b\x00Zo\x12,bv\x11X>VQ\x02&htwwzv\x16Br \x193X\x01C\x1D!G S[@~1%Y\x16pN!\x1Cxzx\x16P\x10!hM\x10v2h2<UfgBlj?l#h\x11A16YiG\x7F^\\\x07KKv\x1Dp\x15C\x12yc\fc_\\\x11B _(\r\x00m\x16H}\x1DR\x10'mm1`(w\b";
   // randomBytes(size).toString("ascii");
