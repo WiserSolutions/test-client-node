@@ -1,6 +1,6 @@
 import { parentPort, workerData } from "worker_threads";
 import { performance, PerformanceObserver } from "perf_hooks";
-import { EventStoreDBClient, ReadPosition } from "@eventstore/db-client";
+import { EventStoreDBClient, ReadPosition, Filter} from "@eventstore/db-client";
 import { Init, PerformanceMsg, ResponseMsg } from "./types";
 
 async function initialize({
@@ -11,6 +11,7 @@ async function initialize({
   reportPerNumberOfEvents,
   fromPosition,
   resolveLinkTos,
+  streamFilter,
 }: Init) {
   const perfObserver = new PerformanceObserver((items) => {
     const allEntries = items.getEntries();
@@ -64,6 +65,7 @@ async function initialize({
         reportPerNumberOfEvents,
         fromPosition,
         resolveLinkTos,
+        streamFilter,
       })
     )
   );
@@ -130,6 +132,7 @@ interface RunClientOptions {
   reportPerNumberOfEvents: number;
   fromPosition: ReadPosition;
   resolveLinkTos: boolean;
+  streamFilter?: Filter;
 }
 
 async function runClient({
@@ -139,6 +142,7 @@ async function runClient({
   reportPerNumberOfEvents,
   fromPosition,
   resolveLinkTos,
+  streamFilter,
 }: RunClientOptions): Promise<ClientResult> {
   const client = EventStoreDBClient.connectionString(connectionString);
 
@@ -149,6 +153,7 @@ async function runClient({
   for await (const _ of client.subscribeToAll({
     fromPosition,
     resolveLinkTos,
+    filter: streamFilter,
   })) {
     if (total >= eventsPerClient) {
       break;

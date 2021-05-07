@@ -2,7 +2,7 @@ import { Worker } from "worker_threads";
 import { cpus } from "os";
 
 import type { CommandModule } from "yargs";
-import type { ReadPosition } from "@eventstore/db-client";
+import { ReadPosition, streamNameFilter } from "@eventstore/db-client";
 
 import { Init, PerformanceMsg, ResponseMsg, WToPMsg } from "./types";
 
@@ -14,6 +14,7 @@ interface Options {
   report_per_number_of_events: number;
   from_position: ReadPosition;
   resolve_link_tos: boolean;
+  stream_prefix: string;
 }
 
 const safl: CommandModule<{}, Options> = {
@@ -31,6 +32,9 @@ const safl: CommandModule<{}, Options> = {
     total_events_to_read: {
       type: "number",
       default: 1000,
+    },
+    stream_prefix: {
+      type: "string",
     },
     report_per_number_of_events: {
       type: "number",
@@ -51,6 +55,7 @@ async function handler({
   client_count: clientCount,
   worker_count,
   total_events_to_read: totalEventsToRead,
+  stream_prefix,
   report_per_number_of_events: reportPerNumberOfEvents,
   connectionString,
   from_position: fromPosition,
@@ -76,8 +81,8 @@ async function handler({
   );
 
   const promises = await Promise.allSettled(
-    workerCounts.map(({ clientCount, eventsPerClient }, i) =>
-      spawnWorker({
+    workerCounts.map(({ clientCount, eventsPerClient }, i) => {
+      const spawnOptions: Init = {
         id: `${i}`,
         clientCount,
         connectionString,
@@ -85,7 +90,10 @@ async function handler({
         reportPerNumberOfEvents,
         fromPosition,
         resolveLinkTos,
-      })
+      };
+      if (stream_prefix) spawnOptions.streamFilter = streamNameFilter({ prefixes: [stream_prefix] })
+      return spawnWorker(spawnOptions);
+    }
     )
   );
 

@@ -1,4 +1,4 @@
-import type { ReadPosition } from "@eventstore/db-client";
+import type { Filter, ReadPosition } from "@eventstore/db-client";
 
 export interface Init {
   id: string;
@@ -8,6 +8,7 @@ export interface Init {
   reportPerNumberOfEvents: number;
   fromPosition: ReadPosition;
   resolveLinkTos: boolean;
+  streamFilter?: Filter;
 }
 
 export interface ResponseMsg {
